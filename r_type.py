@@ -1,5 +1,3 @@
-import re
-
 functions_r = {"add": ["0000000", "000"],                #opcode: [funct7, funct3]
              "sub": ["0100000", "000"], 
              "sll": ["0000000", "001"], 
@@ -11,11 +9,9 @@ functions_r = {"add": ["0000000", "000"],                #opcode: [funct7, funct
              "and": ["0000000", "111"]
              }
 
-def r_type(instruction):
-    items = re.split(' |,', instruction)
-   
-    operation = items[0]
-    reg1, reg2, reg3 = reg_ENCODE[items[1]], reg_ENCODE[items[2]], reg_ENCODE[items[3]]
+def r_type(instruction_list):
+    operation = instruction_list[0]
+    reg1, reg2, reg3 = reg_ENCODE[instruction_list[1]], reg_ENCODE[instruction_list[2]], reg_ENCODE[instruction_list[3]]
     
     output = functions_r[operation][0] + reg3 + reg2 + functions_r[operation][1] + reg1 + "0110011"
 
