@@ -29,6 +29,7 @@ with open(r"", 'r') as pointer:
 pc = 0
 output_list = []
 while (pc<(len(assembly))):
+    instruction = assembly[pc]
     if instruction == "":                                      #for Empty lines
         pc += 1
         continue
