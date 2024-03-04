@@ -9,7 +9,17 @@ reg_ENCODE  = {'zero': '00000',   'ra': '00001',     'sp': '00010',     'gp': '0
                's8': '11000',     's9': '11001',     's10': '11010',    's11': '11011', 
                't3': '11100',     't4': '11101',     't5': '11110',     't6': '11111'}
 
-
+instruction_mapping = {"r_type": ["add", "sub", "sll", 
+                                  "slt", "sltu", "xor", 
+                                  "srl", "or", "and"], 
+                       "i_type": ["lw", "lb", "lh", "ld", 
+                                   "addi", "sltiu", 'jalr'], 
+                       "s_type": ["sw", "sb", "sh", "sd"], 
+                       "b_type": ["beq", "bne", "blt", 
+                                   "bge", "bltu", "bgeu"], 
+                       "u_type": ["lui", "auipc"], 
+                       "j_type": ["jal"]
+                       }
 
 
 with open(r"", 'r') as pointer:
@@ -18,9 +28,51 @@ with open(r"", 'r') as pointer:
 
 pc = 0
 output_list = []
-# while (pc<(len(assembly))):
+while (pc<(len(assembly))):
+    if instruction == "":                                      #for Empty lines
+        pc += 1
+        continue
+      
+    for index in range(len(instruction)):
+        instruction[index] = instruction[index].lower()
+    
+    instruction_elements = re.split(' |,|(|)', instruction)
+    type = instruction_elements[0]
+
   
-  #Split the instruction on ' ' and ',' using regex(re) module. items = re.split(' |,', instruction)
+    if type in list(instruction_mapping["r_type"]):
+        output = r_type(instruction_elements)
+        output_list.append(output)
+  
+    elif type in list(instruction_mapping["i_type"]):
+        output = I_TYPE(instruction_elements)
+        output_list.append(output)  
+
+    elif type in list(instruction_mapping["s_type"]):
+        output = S_TYPE(instruction_elements)
+        output_list.append(output)
+
+    elif type in list(instruction_mapping["b_type"]):
+        output = B_TYPE(instruction_elements)
+        output_list.append(output)
+
+    elif type in list(instruction_mapping["u_type"]):
+        output = u_type(instruction_elements)
+        output_list.append(output)
+
+    elif type in list(instruction_mapping["j_type"]):
+        output = J_TYPE(instruction_elements)
+        output_list.append(output)
+
+    else:
+        error = "Operation not valid"
+        output_list = []
+        output_list.append(error)
+        break
+
+
+  
+  
 
 
 
