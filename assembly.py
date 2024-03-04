@@ -30,6 +30,7 @@ def sext(number, bits):
     This function first converts the number into binary
     and then extends its bits to the required amount
     """
+    number = int(number)
     if (number<0):
         sign = -1
         number = -number
