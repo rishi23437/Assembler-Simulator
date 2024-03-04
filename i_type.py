@@ -9,7 +9,7 @@ map_I_TYPE = {"addi" :   ["0010011", "000"] ,
               "ld" :     ["0000011","010"]}
 
 def I_TYPE( I_instruction ):
-  imm = sext(I_instruction[3],12)
+  imm = sext(string_to_number(I_instruction[3]),12)
   rs = reg_ENCODE[I_instruction[2]]
   rd = reg_ENCODE[I_instruction[1]]
   
