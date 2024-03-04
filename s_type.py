@@ -1,9 +1,9 @@
 # s{b|h|w|d}
 
 map_S_TYPE = {"sw" :     ["0100011","010"] , 
-              "sb" :     ["0100011","010"] ,  #assumption - sw, sb, sh, sd are equivalent --> REVISIT this line
-              "sh" :     ["0100011","010"] , 
-              "sd" :     ["0100011","010"]}
+              "sb" :     ["0100011","000"] ,  # using https://msyksphinz-self.github.io/riscv-isadoc/html/rvi.html#lb
+              "sh" :     ["0100011","001"] , 
+              "sd" :     ["0100011","XXX"]}   # INSUFFICIENT INFORMATION !!!
 
 def S_TYPE( S_instruction ):
   '''argument : list type, instruction
