@@ -15,7 +15,7 @@ def r_type(instruction):
     items = re.split(' |,', instruction)
    
     operation = items[0]
-    reg1, reg2, reg3 = reg_ENCODE(items[1]), reg_ENCODE(items[2]), reg_ENCODE(items[3])
+    reg1, reg2, reg3 = reg_ENCODE[items[1]], reg_ENCODE[items[2]], reg_ENCODE[items[3]]
     
     output = functions_r[operation][0] + reg3 + reg2 + functions_r[operation][1] + reg1 + "0110011"
 
