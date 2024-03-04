@@ -14,9 +14,9 @@ functions_r = {"add": ["0000000", "000"],                #opcode: [funct7, funct
 def r_type(instruction):
     items = re.split(' |,', instruction)
    
-    opcode = items[0]
+    operation = items[0]
     reg1, reg2, reg3 = reg_ENCODE(items[1]), reg_ENCODE(items[2]), reg_ENCODE(items[3])
     
-    output = functions_r[opcode][0] + reg3 + reg2 + functions_r[opcode][1] + reg1 + "0110011"
+    output = functions_r[operation][0] + reg3 + reg2 + functions_r[operation][1] + reg1 + "0110011"
 
     return output 
