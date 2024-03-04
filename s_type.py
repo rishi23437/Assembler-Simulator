@@ -9,7 +9,7 @@ def S_TYPE( S_instruction ):
   '''argument : list type, instruction
   returns : string of encoded binary
   '''
-  imm = sext(string_to_number(S_instruction[2]),12)
+  imm = sext(int(S_instruction[2]),12)
   rt = reg_ENCODE[S_instruction[3]]
   rd = reg_ENCODE[S_instruction[1]]
   
