@@ -60,6 +60,9 @@ def sext(number, bits):
 
 
 def string_to_number(value):
+  ''' this function takes a STRING number as argument
+  returns a corresponding INTEGER value after removing leading 0 
+  '''
   fin = ""
   if value[0]=="-":
     fin += "-"
