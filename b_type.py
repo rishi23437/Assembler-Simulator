@@ -9,12 +9,12 @@ def B_TYPE( B_instruction ):
   """
   B_instruction is a list of the form [[opcode, funct3], rs1, rs2, immediate value not converted in bits]
   """
-  imm = sext(int(B_instruction[3]),12)
+  imm = sext(int(B_instruction[3]),13)
   rs1 = reg_ENCODE[B_instruction[1]]
   rs2 = reg_ENCODE[B_instruction[2]]
   
   funct3 = map_B_TYPE[B_instruction[0]][1]
   opc = map_B_TYPE[B_instruction[0]][0]
   
-  decoded = imm[:7] + rs2 + rs1 + funct3 + imm[7::] + opc
+  decoded = imm[0] + imm[2:8] + rs2 + rs1 + funct3 + imm[8:12] + imm[1] + opc
   return decoded
