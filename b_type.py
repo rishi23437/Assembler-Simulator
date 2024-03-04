@@ -5,8 +5,11 @@ map_B_TYPE = { "beq" : ["1100011", "000"] ,
               "bltu" : ["1100011", "110"] , 
               "bgeu" : ["1100011", "111"] }
 
-def B_TYPE( B_instruction ):              #list is of the form [[opcode, funct3], rs1, rs2, immediate value not converted in bits]
-  imm = sext(B_instruction[3], 12)
+def B_TYPE( B_instruction ):
+  """
+  B_instruction is a list of the form [[opcode, funct3], rs1, rs2, immediate value not converted in bits]
+  """
+  imm = sext(string_to_number(B_instruction[3]),12)
   rs1 = reg_ENCODE[B_instruction[1]]
   rs2 = reg_ENCODE[B_instruction[2]]
   
