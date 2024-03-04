@@ -16,5 +16,5 @@ def S_TYPE( S_instruction ):
   funct = map_S_TYPE[S_instruction[0]][1]
   opc = map_S_TYPE[S_instruction[0]][0]
   
-  encoded = imm[0:7] + rd + rt + imm[7:] + opc
+  encoded = imm[0:7] + rd + rt + funct + imm[7:] + opc
   return encoded
