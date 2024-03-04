@@ -1,12 +1,12 @@
 # addi , sltiu , jalr , l{b|h|w|d}
 
-map_I_TYPE = { "addi" : ["0010011", "000"] , 
-              "sltiu" : ["0010011", "011"] , 
-              "jalr" : ["1100111", "000"] , 
-              "lw" : ["0000011","010"] , 
-              "lb" : ["", ""] , 
-              "lh" : ["", ""] , 
-              "ld" : ["", ""] }
+map_I_TYPE = {"addi" :   ["0010011", "000"] , 
+              "sltiu" :  ["0010011", "011"] , 
+              "jalr" :   ["1100111", "000"] , 
+              "lw" :     ["0000011","010"] , 
+              "lb" :     ["0000011","010"] ,  #assumption - lw, lb, lh, ld are equivalent --> REVISIT this line
+              "lh" :     ["0000011","010"] , 
+              "ld" :     ["0000011","010"]}
 
 def I_TYPE( I_instruction ):
   imm = I_instruction[3]
