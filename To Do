@@ -6,3 +6,11 @@ dictionary registers
 Table 17 shows the binary encoding of the various registers used by RISC V. Note that the register
 x0 always contains the value 0. The value is not impacted by any writes done on it. While writing
 the program code, it is recommended to use saved registers as much as possible.
+
+-------------------------------------------------------------------------------------------------------
+input: file se readlines karke list mein daal denge, list will contain all the instructions separately
+for instruction in list:
+    check instruction type
+    implement corresponding function --> this part we are doing individually
+    write final binary pattern into text file
+-------------------------------------------------------------------------------------------------------
