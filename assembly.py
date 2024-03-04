@@ -17,7 +17,7 @@ with open(r"", 'r') as pointer:
     print(assembly)
 
 pc = 0
-
+output_list = []
 # while (pc<(len(assembly))):
   
   #Split the instruction on ' ' and ',' using regex(re) module. items = re.split(' |,', instruction)
