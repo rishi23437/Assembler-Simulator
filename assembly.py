@@ -58,4 +58,14 @@ def sext(number, bits):
     return binary
 
 
-    
+
+def string_to_number(value):
+  fin = ""
+  if value[0]=="-":
+    fin += "-"
+    value = value[1:]
+  value = value.lstrip("0")
+  fin += value
+  return int(fin)
+
+
