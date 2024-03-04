@@ -4,7 +4,7 @@ map_I_TYPE = {"addi" :   ["0010011", "000"] ,
               "sltiu" :  ["0010011", "011"] , 
               "jalr" :   ["1100111", "000"] , 
               "lw" :     ["0000011","010"] , 
-              "lb" :     ["0000011","000"] ,  #assumption - lw, lb, lh, ld are equivalent --> REVISIT this line
+              "lb" :     ["0000011","000"] ,  #using https://msyksphinz-self.github.io/riscv-isadoc/html/rvi.html#lb
               "lh" :     ["0000011","001"] , 
               "ld" :     ["0000011","XXX"]} # insufficient information!!!!!
 
