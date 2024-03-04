@@ -1,5 +1,4 @@
-import re
-functions_itype = {"lui"  :"0110111",
+functions_itype = {"lui":"0110111",
                    "auipc":"0010111"
                 }
 
