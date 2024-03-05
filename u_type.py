@@ -1,7 +1,7 @@
 functions_itype = {"lui":"0110111",
                    "auipc":"0010111"}
 
-def U_type(U_instruction):
+def U_TYPE(U_instruction):
   
     ''' 
     U_instruction is a list of string in format :
