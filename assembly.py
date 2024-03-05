@@ -30,7 +30,9 @@ with open(r"", 'r') as pointer:
 
 PC = 0
 output_list = []
+
 vh_flag = False
+vh_num = -1
 
 while ( PC < (len(assembly) ) ):
     instruction = (assembly[PC]).lower()
@@ -41,7 +43,8 @@ while ( PC < (len(assembly) ) ):
 
     if (vh_flag == True):
         output_list.clear()
-        output_list.append( errorGEN("e7", PC) )
+        output_list.append( errorGEN("e7", vh_num) )
+        break
       
     instruction_elements = re.split(' |,|(|)', instruction)
     type = instruction_elements[0]
@@ -66,6 +69,10 @@ while ( PC < (len(assembly) ) ):
             output_list.clear()
             output_list.append( errorGEN("e1", PC) )
             break
+
+        if (output == virtual_halt):
+          vh_flag = True
+          vh_num = PC
           
         output_list.append(output)
 
@@ -89,7 +96,12 @@ while ( PC < (len(assembly) ) ):
       if ( PC != (len(assembly)-1) ):
         
     PC += 1
- 
+
+else:
+  # this CODE will not be execute if while has been exited due to a BREAK statement
+  if (vh_flag == False):
+    output_list.clear()
+    output_list.append( errorGEN("e6", PC-1) )
 
 # CODE FOR OUTPUT FILE
   
@@ -148,7 +160,7 @@ errorMAPPING = {"e1": "Error: overflow detected in immediate value" ,
                 "e3": "Error: invalid register name",
                 "e4": "Error: maximum(1000) loop calls reached",
                 "e5": "Error: invalid label name",
-                "e6": "Error: Virtual Halt missing",
+                "e6": "Error: Virtual Halt missing after last instruction",
                 "e7": "Error: Virtual Halt encountered before remaining instructions"}                
               
 def errorGEN ( errorNUM, lineNUM ):
