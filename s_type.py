@@ -13,6 +13,9 @@ def S_TYPE( S_instruction ):
   rt = reg_ENCODE.get(S_instruction[3])
   rd = reg_ENCODE.get(S_instruction[1])
 
+  if (imm == "e1"):
+    return imm
+    
   if (rt == None) or (rd == None):
     return "e3"
     
