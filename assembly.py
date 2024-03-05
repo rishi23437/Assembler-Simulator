@@ -30,13 +30,12 @@ pc = 0
 output_list = []
 
 while ( pc < (len(assembly) ) ):
-    instruction = assembly[pc]
+    instruction = (assembly[pc]).lower()
   
     if instruction == "":                                      #for Empty lines
         pc += 1
         continue
       
-    instruction = instruction.lower()
     
     instruction_elements = re.split(' |,|(|)', instruction)
     type = instruction_elements[0]
