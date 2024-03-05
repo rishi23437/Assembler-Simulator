@@ -54,10 +54,12 @@ while ( PC < (len(assembly) ) ):
 
     elif type in instruction_mapping["b_type"]:
         output = B_TYPE(instruction_elements)
-        if (output[0]=='e'):
+        
+        if (output == "e1"):
             output_list.clear()
-            output_list.append(output)
+            output_list.append( errorGEN("e1", PC) )
             break
+          
         output_list.append(output)
 
     elif type in list(instruction_mapping["u_type"]):
@@ -68,10 +70,12 @@ while ( PC < (len(assembly) ) ):
         output = J_TYPE(instruction_elements)
         output_list.append(output)
 
+   # code for LABEL
+  
     else:
-        error = "Operation not valid"
-        output_list = []
-        output_list.append(error)
+        # opcode not from the mentioned mnemonics
+        output_list.clear()
+        output_list.append( errorGEN("e2", PC) )
         break
 
     PC += 1
@@ -84,13 +88,14 @@ while ( PC < (len(assembly) ) ):
 
 
 def sext(number, bits):
+  # ONLY USE IT TO SIGN EXTEND AN IMMEDIATE VALUE
     """
     This function first converts the number into binary
     and then extends its bits to the required amount
     """
     number = int(number)
     if ( ( number < -(2**(bits-1)) ) or ( number > (2**(bits-1))-1 ) ):
-        return "error: overflow detected"
+        return "e1"
       
     if (number<0):
         sign = -1
@@ -125,11 +130,19 @@ def sext(number, bits):
         binary = twosComplement[::-1]
     return binary
 
-errorMAPPING = {"e1": "error: overflow detected" ,
-                "e2": "
+errorMAPPING = {"e1": "Error: overflow detected in immediate value" ,
+                "e2": "Error: invalid opcode",
+                "e3": "Error: invalid register name",
+                "e4": "Error: maximum(1000) loop calls reached",
+                "e5": "Error: invalid label name",
+                "e6": "Error: Virtual Halt missing",
+                "e7": "Error: Virtual Halt encountered before remaining instructions"}
+                
+                
                 
 def errorGEN ( errorNUM, lineNUM ):
-  e
+  errorMSG = errorMAPPNIG[errorNUM] + " at line " + (lineNUM + 1)
+  return errorMSG
   
 
 
