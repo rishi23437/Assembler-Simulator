@@ -55,7 +55,7 @@ while ( PC < (len(assembly) ) ):
     elif type in instruction_mapping["b_type"]:
         output = B_TYPE(instruction_elements)
         if (output[0]=='e'):
-            output_list = []
+            output_list.clear()
             output_list.append(output)
             break
         output_list.append(output)
@@ -91,20 +91,25 @@ def sext(number, bits):
     number = int(number)
     if ( ( number < -(2**(bits-1)) ) or ( number > (2**(bits-1))-1 ) ):
         return "error: overflow detected"
+      
     if (number<0):
         sign = -1
         number = -number
+      
     else:
         sign = 1
     binary = ""
+  
     while (number>0):
         binary += f"{number%2}"
         number = number//2
     binary = binary[::-1]
     binary = ('0'*(bits-len(binary)))+binary
+  
     if (sign == -1):
         flag=False
         twosComplement = ""
+      
         for i in range(len(binary)-1, -1, -1):
             if (flag):
                 if binary[i]=='1':
@@ -112,11 +117,19 @@ def sext(number, bits):
                 else:
                     twosComplement+='1'
                 continue
+              
             twosComplement+=binary[i]
             if (binary[i]=='1'):
                 flag = True 
+              
         binary = twosComplement[::-1]
     return binary
+
+errorMAPPING = {"e1": "error: overflow detected" ,
+                "e2": "
+def errorGEN ( errorNUM, lineNUM ):
+  e
+  
 
 
 
