@@ -86,9 +86,9 @@ while ( PC < (len(assembly) ) ):
         break
   
     if ( output == "e3" ):
-      output_list.clear()
-      output_list.append( errorGen("e3", PC) )
-      break
+        output_list.clear()
+        output_list.append( errorGen("e3", PC) )
+        break
   
     output_list.append(output)
     PC += 1
