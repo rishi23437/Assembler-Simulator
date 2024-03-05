@@ -10,9 +10,12 @@ def S_TYPE( S_instruction ):
   returns : string of encoded binary
   '''
   imm = sext(int(S_instruction[2]),12)
-  rt = reg_ENCODE[S_instruction[3]]
-  rd = reg_ENCODE[S_instruction[1]]
-  
+  rt = reg_ENCODE.get(S_instruction[3])
+  rd = reg_ENCODE.get(S_instruction[1])
+
+  if (rt == None) or (rd == None):
+    return "e3"
+    
   funct = map_S_TYPE[S_instruction[0]][1]
   opc = map_S_TYPE[S_instruction[0]][0]
   
