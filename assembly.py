@@ -41,7 +41,7 @@ while ( PC < (len(assembly) ) ):
 
   
     if type in instruction_mapping["r_type"]:
-        output = r_type(instruction_elements)
+        output = R_type(instruction_elements)
         output_list.append(output)
   
     elif type in instruction_mapping["i_type"]:
@@ -61,7 +61,7 @@ while ( PC < (len(assembly) ) ):
         output_list.append(output)
 
     elif type in list(instruction_mapping["u_type"]):
-        output = u_type(instruction_elements)
+        output = U_type(instruction_elements)
         output_list.append(output)
 
     elif type in list(instruction_mapping["j_type"]):
