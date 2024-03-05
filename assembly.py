@@ -52,15 +52,12 @@ while ( PC < (len(assembly) ) ):
   
     if type in instruction_mapping["r_type"]:
         output = R_TYPE(instruction_elements)
-        output_list.append(output)
   
     elif type in instruction_mapping["i_type"]:
         output = I_TYPE(instruction_elements)
-        output_list.append(output)  
 
     elif type in instruction_mapping["s_type"]:
         output = S_TYPE(instruction_elements)
-        output_list.append(output)
 
     elif type in instruction_mapping["b_type"]:
         output = B_TYPE(instruction_elements)
@@ -74,15 +71,11 @@ while ( PC < (len(assembly) ) ):
           vh_flag = True
           vh_num = PC
           
-        output_list.append(output)
-
     elif type in list(instruction_mapping["u_type"]):
         output = U_TYPE(instruction_elements)
-        output_list.append(output)
 
     elif type in list(instruction_mapping["j_type"]):
         output = J_TYPE(instruction_elements)
-        output_list.append(output)
 
    # code for LABEL
   
@@ -92,9 +85,12 @@ while ( PC < (len(assembly) ) ):
         output_list.append( errorGEN("e2", PC) )
         break
 
-    if (output_list[-1] == virtual_halt):
-      if ( PC != (len(assembly)-1) ):
-        
+    if ( output == "e3" ):
+      output_list.clear()
+      output_list.append( errorGen("e3", PC) )
+      break
+  
+    output_list.append(output)
     PC += 1
 
 else:
