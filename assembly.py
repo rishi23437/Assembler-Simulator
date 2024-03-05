@@ -81,7 +81,7 @@ while ( PC < (len(assembly) ) ):
     PC += 1
 
 
-  
+# CODE FOR OUTPUT FILE
   
 
 
@@ -130,16 +130,17 @@ def sext(number, bits):
         binary = twosComplement[::-1]
     return binary
 
+
+
+
 errorMAPPING = {"e1": "Error: overflow detected in immediate value" ,
                 "e2": "Error: invalid opcode",
                 "e3": "Error: invalid register name",
                 "e4": "Error: maximum(1000) loop calls reached",
                 "e5": "Error: invalid label name",
                 "e6": "Error: Virtual Halt missing",
-                "e7": "Error: Virtual Halt encountered before remaining instructions"}
-                
-                
-                
+                "e7": "Error: Virtual Halt encountered before remaining instructions"}                
+              
 def errorGEN ( errorNUM, lineNUM ):
   errorMSG = errorMAPPNIG[errorNUM] + " at line " + (lineNUM + 1)
   return errorMSG
