@@ -9,7 +9,7 @@ def B_TYPE( B_instruction ):
   """
   B_instruction is a list of the form [[opcode, funct3], rs1, rs2, immediate value not converted in bits]
   """
-  imm = sext(int(B_instruction[3]),13)
+  imm = sext(int(B_instruction[3]),12)
   if (imm == "e1"):
       return imm
     
@@ -22,5 +22,5 @@ def B_TYPE( B_instruction ):
   funct3 = map_B_TYPE[B_instruction[0]][1]
   opc = map_B_TYPE[B_instruction[0]][0]
   
-  decoded = imm[0] + imm[2:8] + rs2 + rs1 + funct3 + imm[8:12] + imm[1] + opc
+  decoded = imm[0:7] + rs2 + rs1 + funct3 + imm[7:11] + imm[0] + opc
   return decoded
