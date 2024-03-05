@@ -9,16 +9,16 @@ reg_ENCODE  = {'zero': '00000',   'ra': '00001',     'sp': '00010',     'gp': '0
                's8': '11000',     's9': '11001',     's10': '11010',    's11': '11011', 
                't3': '11100',     't4': '11101',     't5': '11110',     't6': '11111'}
 
-instruction_mapping = {"r_type": ["add", "sub", "sll", #we can make each element as set also instead of list->faster search
+instruction_mapping = {"r_type": {"add", "sub", "sll", #we can make each element as set also instead of list->faster search
                                   "slt", "sltu", "xor", 
-                                  "srl", "or", "and"], 
-                       "i_type": ["lw", "lb", "lh", "ld", 
-                                   "addi", "sltiu", 'jalr'], 
-                       "s_type": ["sw", "sb", "sh", "sd"], 
-                       "b_type": ["beq", "bne", "blt", 
-                                   "bge", "bltu", "bgeu"], 
-                       "u_type": ["lui", "auipc"], 
-                       "j_type": ["jal"]
+                                  "srl", "or", "and"}, 
+                       "i_type": {"lw", "lb", "lh", "ld", 
+                                   "addi", "sltiu", 'jalr'}, 
+                       "s_type": {"sw", "sb", "sh", "sd"}, 
+                       "b_type": {"beq", "bne", "blt", 
+                                   "bge", "bltu", "bgeu"}, 
+                       "u_type": {"lui", "auipc"}, 
+                       "j_type": {"jal"}
                        }
 
 
@@ -32,28 +32,27 @@ output_list = []
 while ( pc < (len(assembly) ) ):
     instruction = (assembly[pc]).lower()
   
-    if instruction == "":                                      #for Empty lines
+    if (instruction == ""):                                      #for Empty lines
         pc += 1
         continue
       
-    
     instruction_elements = re.split(' |,|(|)', instruction)
     type = instruction_elements[0]
 
   
-    if type in list(instruction_mapping["r_type"]):
+    if type in instruction_mapping["r_type"]:
         output = r_type(instruction_elements)
         output_list.append(output)
   
-    elif type in list(instruction_mapping["i_type"]):
+    elif type in instruction_mapping["i_type"]:
         output = I_TYPE(instruction_elements)
         output_list.append(output)  
 
-    elif type in list(instruction_mapping["s_type"]):
+    elif type in instruction_mapping["s_type"]:
         output = S_TYPE(instruction_elements)
         output_list.append(output)
 
-    elif type in list(instruction_mapping["b_type"]):
+    elif type in instruction_mapping["b_type"]:
         output = B_TYPE(instruction_elements)
         if (output[0]=='e'):
             output_list = []
