@@ -10,8 +10,8 @@ def B_TYPE( B_instruction ):
   B_instruction is a list of the form [[opcode, funct3], rs1, rs2, immediate value not converted in bits]
   """
   imm = sext(int(B_instruction[3]),13)
-  # if (imm[0]=='e'):
-  #   return imm
+  if (imm[0]=='e'):
+      return imm
   rs1 = reg_ENCODE[B_instruction[1]]
   rs2 = reg_ENCODE[B_instruction[2]]
   
