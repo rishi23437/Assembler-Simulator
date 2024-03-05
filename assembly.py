@@ -21,6 +21,8 @@ instruction_mapping = {"r_type": {"add", "sub", "sll", #we can make each element
                        "j_type": {"jal"}
                        }
 
+virtual_halt = "00000000000000000000000001100011"
+
 
 with open(r"", 'r') as pointer:
     assembly = pointer.readlines()
@@ -78,6 +80,9 @@ while ( PC < (len(assembly) ) ):
         output_list.append( errorGEN("e2", PC) )
         break
 
+    if (output_list[-1] == virtual_halt):
+      if ( PC != (len(assembly)-1) ):
+        
     PC += 1
 
 
@@ -142,7 +147,7 @@ errorMAPPING = {"e1": "Error: overflow detected in immediate value" ,
                 "e7": "Error: Virtual Halt encountered before remaining instructions"}                
               
 def errorGEN ( errorNUM, lineNUM ):
-  errorMSG = errorMAPPNIG[errorNUM] + " at line " + (lineNUM + 1)
+  errorMSG = errorMAPPNIG[errorNUM] + " at Line " + (lineNUM + 1)
   return errorMSG
   
 
