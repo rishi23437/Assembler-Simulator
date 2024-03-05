@@ -17,7 +17,7 @@ instruction_mapping = {"r_type": {"add", "sub", "sll", #we can make each element
                        "s_type": {"sw", "sb", "sh", "sd"}, 
                        "b_type": {"beq", "bne", "blt", 
                                    "bge", "bltu", "bgeu"}, 
-                       "u_type": {"lui", "auipc"}, 
+                       "u_type": {"lui", "auiPC"}, 
                        "j_type": {"jal"}
                        }
 
@@ -26,14 +26,14 @@ with open(r"", 'r') as pointer:
     assembly = pointer.readlines()
     #print(assembly)
 
-pc = 0
+PC = 0
 output_list = []
 
-while ( pc < (len(assembly) ) ):
-    instruction = (assembly[pc]).lower()
+while ( PC < (len(assembly) ) ):
+    instruction = (assembly[PC]).lower()
   
     if (instruction == ""):                                      #for Empty lines
-        pc += 1
+        PC += 1
         continue
       
     instruction_elements = re.split(' |,|(|)', instruction)
@@ -74,7 +74,7 @@ while ( pc < (len(assembly) ) ):
         output_list.append(error)
         break
 
-    pc += 1
+    PC += 1
 
 
   
