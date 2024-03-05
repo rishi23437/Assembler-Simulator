@@ -12,8 +12,8 @@ def B_TYPE( B_instruction ):
   imm = sext(int(B_instruction[3]),13)
   if (imm[0]=='e'):
       return imm
-  rs1 = reg_ENCODE[B_instruction[1]]
-  rs2 = reg_ENCODE[B_instruction[2]]
+  rs1 = reg_ENCODE.get(B_instruction[1])
+  rs2 = reg_ENCODE.get(B_instruction[2])
   
   funct3 = map_B_TYPE[B_instruction[0]][1]
   opc = map_B_TYPE[B_instruction[0]][0]
