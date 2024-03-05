@@ -3,6 +3,12 @@ WHAT to DO about SD and LD instructions in I-TYPE INSTRUCTIONs ??
 ---------------------------------------------------------------------------------
 ld, lh, lb, sd, sh, sb - implemented till now, can remove later if not required
 ---------------------------------------------------------------------------------
+BONUS:
+Opcodes already used: 1100011, 0110011, 0010011, 1100111, 0000011, 0100011, 
+                      0110111, 0010111
+Use DIFFERENT opcodes for the bonus(4) instructions:
+Can use these: 00001{00-11} 
+---------------------------------------------------------------------------------
 
 decimal to binary - done!
 binary to decimal 
