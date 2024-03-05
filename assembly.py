@@ -49,6 +49,7 @@ while ( PC < (len(assembly) ) ):
     instruction_elements = re.split(' |,|(|)', instruction)
     type = instruction_elements[0]
 
+    #If there is a label in the instruction, type = "number:operation" or type = "number", number denotes the label
   
     if type in instruction_mapping["r_type"]:
         output = R_TYPE(instruction_elements)
