@@ -61,11 +61,6 @@ while ( PC < (len(assembly) ) ):
 
     elif type in instruction_mapping["b_type"]:
         output = B_TYPE(instruction_elements)
-        
-        if (output == "e1"):
-            output_list.clear()
-            output_list.append( errorGEN("e1", PC) )
-            break
 
         if (output == virtual_halt):
           vh_flag = True
@@ -85,6 +80,11 @@ while ( PC < (len(assembly) ) ):
         output_list.append( errorGEN("e2", PC) )
         break
 
+    if ( output == "e1" ):
+        output_list.clear()
+        output_list.append( errorGEN("e1", PC) )
+        break
+  
     if ( output == "e3" ):
       output_list.clear()
       output_list.append( errorGen("e3", PC) )
