@@ -24,18 +24,19 @@ instruction_mapping = {"r_type": ["add", "sub", "sll", #we can make each element
 
 with open(r"", 'r') as pointer:
     assembly = pointer.readlines()
-    print(assembly)
+    #print(assembly)
 
 pc = 0
 output_list = []
-while (pc<(len(assembly))):
+
+while ( pc < (len(assembly) ) ):
     instruction = assembly[pc]
+  
     if instruction == "":                                      #for Empty lines
         pc += 1
         continue
       
-    for index in range(len(instruction)):
-        instruction[index] = instruction[index].lower()
+    instruction = instruction.lower()
     
     instruction_elements = re.split(' |,|(|)', instruction)
     type = instruction_elements[0]
