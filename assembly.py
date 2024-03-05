@@ -160,7 +160,7 @@ errorMAPPING = {"e1": "Error: overflow detected in immediate value" ,
                 "e7": "Error: Virtual Halt encountered before remaining instructions"}                
               
 def errorGEN ( errorNUM, lineNUM ):
-  errorMSG = errorMAPPNIG[errorNUM] + " at Line " + (lineNUM + 1)  # 0 PC implies line 1 !!!
+  errorMSG = errorMAPPING[errorNUM] + " at Line " + (lineNUM + 1)  # 0 PC implies line 1 !!!
   return errorMSG
   
 
