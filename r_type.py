@@ -9,7 +9,7 @@ functions_r = {"add": ["0000000", "000"],                #opcode: [funct7, funct
              "and": ["0000000", "111"]
              }
 
-def R_type(instruction_list):
+def R_TYPE(instruction_list):
     operation = instruction_list[0]
     reg1, reg2, reg3 = reg_ENCODE[instruction_list[1]], reg_ENCODE[instruction_list[2]], reg_ENCODE[instruction_list[3]]
     
