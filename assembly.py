@@ -30,6 +30,7 @@ with open(r"", 'r') as pointer:
 
 PC = 0
 output_list = []
+vh_flag = False
 
 while ( PC < (len(assembly) ) ):
     instruction = (assembly[PC]).lower()
@@ -37,6 +38,10 @@ while ( PC < (len(assembly) ) ):
     if (instruction == ""):                                      #for Empty lines
         PC += 1
         continue
+
+    if (vh_flag == True):
+        output_list.clear()
+        output_list.append( errorGEN("e7", PC) )
       
     instruction_elements = re.split(' |,|(|)', instruction)
     type = instruction_elements[0]
@@ -84,7 +89,7 @@ while ( PC < (len(assembly) ) ):
       if ( PC != (len(assembly)-1) ):
         
     PC += 1
-
+ 
 
 # CODE FOR OUTPUT FILE
   
@@ -147,7 +152,7 @@ errorMAPPING = {"e1": "Error: overflow detected in immediate value" ,
                 "e7": "Error: Virtual Halt encountered before remaining instructions"}                
               
 def errorGEN ( errorNUM, lineNUM ):
-  errorMSG = errorMAPPNIG[errorNUM] + " at Line " + (lineNUM + 1)
+  errorMSG = errorMAPPNIG[errorNUM] + " at Line " + (lineNUM + 1)  # 0 PC implies line 1 !!!
   return errorMSG
   
 
