@@ -127,6 +127,7 @@ def sext(number, bits):
 
 errorMAPPING = {"e1": "error: overflow detected" ,
                 "e2": "
+                
 def errorGEN ( errorNUM, lineNUM ):
   e
   
