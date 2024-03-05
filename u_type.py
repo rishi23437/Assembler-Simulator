@@ -11,7 +11,10 @@ def U_TYPE(U_instruction):
     '''
   
     imm = sext(int(U_instruction[2]),20)
-    reg = reg_ENCODE[U_instruction[1]]
+    reg = reg_ENCODE.get(U_instruction[1])
     op_c= functions_itype[U_instruction[0]]
+
+    if (reg == None):
+      return "e3"
     
     return  imm+reg+op_c
