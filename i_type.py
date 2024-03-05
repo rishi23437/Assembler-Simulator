@@ -13,8 +13,11 @@ def I_TYPE( I_instruction ):
   returns : string of encoded binary
   '''
   imm = sext(int(I_instruction[3]),12)
-  rs = reg_ENCODE[I_instruction[2]]
-  rd = reg_ENCODE[I_instruction[1]]
+  rs = reg_ENCODE.get(I_instruction[2])
+  rd = reg_ENCODE.get(I_instruction[1])
+
+  if (rs == None) or (rd == None):
+    return "e3"
   
   funct = map_I_TYPE[I_instruction[0]][1]
   opc = map_I_TYPE[I_instruction[0]][0]
