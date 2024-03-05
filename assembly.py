@@ -55,6 +55,10 @@ while (pc<(len(assembly))):
 
     elif type in list(instruction_mapping["b_type"]):
         output = B_TYPE(instruction_elements)
+        # if (output[0]=='e'):
+        #     output_list = []
+        #     output_list.append(output)
+        #     break
         output_list.append(output)
 
     elif type in list(instruction_mapping["u_type"]):
