@@ -14,6 +14,9 @@ def U_TYPE(U_instruction):
     reg = reg_ENCODE.get(U_instruction[1])
     op_c= functions_itype[U_instruction[0]]
 
+    if (imm == "e1"):
+      return imm
+      
     if (reg == None):
       return "e3"
     
