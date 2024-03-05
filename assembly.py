@@ -75,6 +75,8 @@ while (pc<(len(assembly))):
         output_list.append(error)
         break
 
+    pc += 1
+
 
   
   
