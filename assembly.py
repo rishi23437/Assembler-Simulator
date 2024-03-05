@@ -84,6 +84,8 @@ def sext(number, bits):
     and then extends its bits to the required amount
     """
     number = int(number)
+    if (number<-(2**(bits-1)) or number>(2**(bits-1))-1):
+        return "error: overflow detected"
     if (number<0):
         sign = -1
         number = -number
