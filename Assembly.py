@@ -115,7 +115,7 @@ def I_TYPE( I_instruction ):
   '''
   rd = reg_ENCODE.get(I_instruction[1])
   
-  if ((I_instruction[0] != "lw"):
+  if (I_instruction[0] != "lw"):
       imm = sext(int(I_instruction[3]),12)
       rs = reg_ENCODE.get(I_instruction[2])    
 
