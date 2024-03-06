@@ -1,9 +1,6 @@
 # s{b|h|w|d}
 
-map_S_TYPE = {"sw" :     ["0100011","010"] , 
-              "sb" :     ["0100011","000"] ,  # using https://msyksphinz-self.github.io/riscv-isadoc/html/rvi.html#lb
-              "sh" :     ["0100011","001"] , 
-              "sd" :     ["0100011","XXX"]}   # INSUFFICIENT INFORMATION !!!
+map_S_TYPE = {"sw" :     ["0100011","010"] }   
 
 def S_TYPE( S_instruction ):
   '''argument : list type, instruction
