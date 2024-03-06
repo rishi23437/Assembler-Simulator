@@ -199,8 +199,8 @@ errorMAPPING = {"e1": "Error: overflow detected in immediate value" ,
                 "e7": "Error: Virtual Halt encountered before remaining instructions", 
                 "e8": "Error: Address given in label is out of bounds" }                
               
-def errorGEN ( errorNUM, lineNUM ):
-  errorMSG = errorMAPPING[errorNUM] + " at Line " + (lineNUM + 1)  # 0 PC implies line 1 !!!
+def errorGEN ( errorNUM, lineNUM ):                              #changed linenum to f_string as it was giving error of int + string being invalid
+  errorMSG = errorMAPPING[errorNUM] + " at Line " + f'{lineNUM + 1}'  # 0 PC implies line 1 !!!
   return errorMSG
   
 
