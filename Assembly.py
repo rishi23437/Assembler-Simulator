@@ -213,7 +213,7 @@ def U_TYPE(U_instruction):
     return  imm+reg+op_c
 
 #j
-functions_jtype={"jal":"0010111"}
+functions_jtype={"jal":"1101111"}
 
 def J_TYPE(J_instruction):
   '''
