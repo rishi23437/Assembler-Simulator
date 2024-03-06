@@ -129,27 +129,16 @@ def I_TYPE( I_instruction ):
   if (rs == None) or (rd == None):
       return "e3"
       
-      
-      
-
-  
-
   funct = map_I_TYPE[I_instruction[0]][1]
   opc = map_I_TYPE[I_instruction[0]][0]
   
-  encoded = imm + rs + funct + rd + opc
-
-
-    
+  encoded = imm + rs + funct + rd + opc   
   return encoded
 
 #s
 # s{b|h|w|d}
 
-map_S_TYPE = {"sw" :     ["0100011","010"] , 
-              "sb" :     ["0100011","000"] ,  # using https://msyksphinz-self.github.io/riscv-isadoc/html/rvi.html#lb
-              "sh" :     ["0100011","001"] , 
-              "sd" :     ["0100011","XXX"]}   # INSUFFICIENT INFORMATION !!!
+map_S_TYPE = {"sw" :     ["0100011","010"] }  
 
 def S_TYPE( S_instruction ):
   '''argument : list type, instruction
