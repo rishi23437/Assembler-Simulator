@@ -223,7 +223,7 @@ def J_TYPE(J_instruction):
   returns : 32 bit binary sequence
   '''
   
-  imm=sext(int(J_instruction[2],20))
+  imm=sext(int(J_instruction[2]),20)
   if (imm == "e1"):
       return imm
   imm=imm[0]+imm[10:20]+imm[9]+imm[1:9]
