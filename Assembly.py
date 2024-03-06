@@ -16,7 +16,7 @@ instruction_mapping = {"r_type": {"add", "sub", "sll",
                        "s_type": {"sw"}, 
                        "b_type": {"beq", "bne", "blt", 
                                    "bge", "bltu", "bgeu"}, 
-                       "u_type": {"lui", "auiPC"}, 
+                       "u_type": {"lui", "auipc"}, 
                        "j_type": {"jal"}
                        }
 
