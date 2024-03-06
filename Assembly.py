@@ -265,7 +265,7 @@ vh_num = -1
 while ( PC < (len(assembly) ) ):
     instruction = (assembly[PC]).lower()
   
-    if (instruction == ""):                                      #for Empty lines
+    if (instruction == "\n"):                                      #for Empty lines
         PC += 1
         continue
 
