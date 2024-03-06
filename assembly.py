@@ -23,6 +23,19 @@ instruction_mapping = {"r_type": {"add", "sub", "sll",
 
 virtual_halt = "00000000000000000000000001100011"
 
+def label_in_bounds(label):
+    """
+    label: an Integer, in decimal, signed.
+    this function returns e8 if label is out of bounds, else True.
+    """
+    global PC, assembly
+
+    line_to_jump = PC + label
+    if line_to_jump >= 0 and line_to_jump < len(assembly):
+        return True
+    else:
+        return "e8"
+
 
 with open(r"", 'r') as pointer:
     assembly = pointer.readlines()
@@ -55,12 +68,25 @@ while ( PC < (len(assembly) ) ):
         output = R_TYPE(instruction_elements)
   
     elif type in instruction_mapping["i_type"]:
+        if type == "jalr":
+            label_num = int(instruction_elements[-1])               #to check if resultant line(to jump to) is out of bounds
+            if label_in_bounds(label_num) == "e8":
+                output_list.clear()
+                output_list.append(errorGEN("e8", PC))
+                break
+      
         output = I_TYPE(instruction_elements)
 
     elif type in instruction_mapping["s_type"]:
         output = S_TYPE(instruction_elements)
 
     elif type in instruction_mapping["b_type"]:
+        label_num = int(instruction_elements[-1])              #to check if resultant line(to jump to) is out of bounds
+        if label_in_bounds(label_num) == "e8":
+            output_list.clear()
+            output_list.append(errorGEN("e8", PC))
+            break
+      
         output = B_TYPE(instruction_elements)
 
         if (output == virtual_halt):
@@ -71,6 +97,12 @@ while ( PC < (len(assembly) ) ):
         output = U_TYPE(instruction_elements)
 
     elif type in list(instruction_mapping["j_type"]):
+        label_num = int(instruction_elements[-1])              #to check if resultant line(to jump to) is out of bounds
+        if label_in_bounds(label_num) == "e8":
+            output_list.clear()
+            output_list.append(errorGEN("e8", PC))
+            break
+      
         output = J_TYPE(instruction_elements)
 
    # code for LABEL
