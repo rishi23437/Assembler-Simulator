@@ -59,7 +59,8 @@ while ( PC < (len(assembly) ) ):
         output_list.append( errorGEN("e7", vh_num) )
         break
       
-    instruction_elements = re.split(' |,|(|)|:', instruction)
+    instruction_elements = re.split(' |,|\(|\)|:|\n', instruction)
+    instruction_elements = [element for element in instruction_elements if element != ""]
 
     #if label is present in instruction_elements, type will be 2nd element of the list(after removing "")
     #NOTE: Label has not been removed
