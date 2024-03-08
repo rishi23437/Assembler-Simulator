@@ -70,7 +70,8 @@ errorMAPPING = {"e1": "Error: overflow detected in immediate value" ,
                 "e5": "Error: invalid label name",
                 "e6": "Error: Virtual Halt missing after last instruction",
                 "e7": "Error: Virtual Halt encountered before remaining instructions", 
-                "e8": "Error: Address given in label is out of bounds" }                
+                "e8": "Error: Address given in label is out of bounds",
+                "e9": "Error: Label name not unique" }                
               
 def errorGEN ( errorNUM, lineNUM ):
   errorMSG = errorMAPPING[errorNUM] + " at Line " + f'{lineNUM + 1}'  # 0 PC implies line 1 !!!
@@ -238,18 +239,18 @@ def J_TYPE(J_instruction):
 
 virtual_halt = "00000000000000000000000001100011"
 
-def label_in_bounds(label):
-    """
-    label: an Integer, in decimal, signed.
-    this function returns e8 if label is out of bounds, else True.
-    """
-    global PC, assembly
+# def label_in_bounds(label):
+#     """
+#     label: an Integer, in decimal, signed.
+#     this function returns e8 if label is out of bounds, else True.
+#     """
+#     global PC, assembly
 
-    line_to_jump = PC + label
-    if line_to_jump >= 0 and line_to_jump < len(assembly):
-        return True
-    else:
-        return "e8"
+#     line_to_jump = PC + label
+#     if line_to_jump >= 0 and line_to_jump < len(assembly):
+#         return True
+#     else:
+#         return "e8"
 
 
 with open(r"C:\Users\Mayank\OneDrive\Desktop\COproj.txt", 'r') as pointer:
