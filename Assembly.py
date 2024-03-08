@@ -274,7 +274,7 @@ for i in range(len(assembly)):
           output_list.append(output)
           break
         
-        label_dict[temp_label[0]] = i
+        label_dict[temp_label] = i
 
 if error_flag == False:
     PC = 0
