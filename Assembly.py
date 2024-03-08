@@ -272,7 +272,7 @@ for i in range(len(assembly)):
           error_flag = True
           output = error_GEN("e9", i+1 )
           output_list.append(output)
-          return
+          break
         
         label_dict[temp_label[0]] = i
 
