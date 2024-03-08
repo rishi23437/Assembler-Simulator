@@ -311,7 +311,7 @@ if error_flag == False:
     
         elif type in instruction_mapping["b_type"]:
             output = B_TYPE(instruction_elements)
-    
+          #label present or not will be checked within B_TYPE() --> label out of bound function in recycle bin
             if (output == virtual_halt):
               vh_flag = True
               vh_num = PC
