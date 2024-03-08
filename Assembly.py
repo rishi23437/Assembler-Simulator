@@ -1,5 +1,6 @@
 import re
 
+#register mapping
 reg_ENCODE  = {'zero': '00000',   'ra': '00001',     'sp': '00010',     'gp': '00011', 
                'tp': '00100',     't0': '00101',     't1': '00110',     't2': '00111', 
                's0': '01000',     'fp': '01000',     's1': '01001',     'a0': '01010',     'a1': '01011', 
@@ -9,6 +10,7 @@ reg_ENCODE  = {'zero': '00000',   'ra': '00001',     'sp': '00010',     'gp': '0
                's8': '11000',     's9': '11001',     's10': '11010',    's11': '11011', 
                't3': '11100',     't4': '11101',     't5': '11110',     't6': '11111'}
 
+#instruction mapping
 instruction_mapping = {"r_type": {"add", "sub", "sll", 
                                   "slt", "sltu", "xor", 
                                   "srl", "or", "and"}, 
@@ -20,6 +22,24 @@ instruction_mapping = {"r_type": {"add", "sub", "sll",
                        "j_type": {"jal"}
                        }
 
+#error mapping
+errorMAPPING = {"e1": "Error: overflow detected in immediate value" ,
+                "e2": "Error: invalid opcode",
+                "e3": "Error: invalid register name",
+                "e4": "Error: maximum(1000) loop calls reached",
+                "e5": "Error: invalid label name",
+                "e6": "Error: Virtual Halt missing after last instruction",
+                "e7": "Error: Virtual Halt encountered before remaining instructions", 
+                "e8": "Error: Address given in label is out of bounds",
+                "e9": "Error: Label name not unique" }                
+              
+def errorGEN ( errorNUM, lineNUM ):
+  errorMSG = errorMAPPING[errorNUM] + " at Line " + f'{lineNUM + 1}'  # 0 PC implies line 1 !!!
+  return errorMSG
+
+########################################################################################
+
+#function for sign extension
 def sext(number, bits):
   # ONLY USE IT TO SIGN EXTEND AN IMMEDIATE VALUE
     """
@@ -63,21 +83,8 @@ def sext(number, bits):
         binary = twosComplement[::-1]
     return binary
 
-errorMAPPING = {"e1": "Error: overflow detected in immediate value" ,
-                "e2": "Error: invalid opcode",
-                "e3": "Error: invalid register name",
-                "e4": "Error: maximum(1000) loop calls reached",
-                "e5": "Error: invalid label name",
-                "e6": "Error: Virtual Halt missing after last instruction",
-                "e7": "Error: Virtual Halt encountered before remaining instructions", 
-                "e8": "Error: Address given in label is out of bounds",
-                "e9": "Error: Label name not unique" }                
-              
-def errorGEN ( errorNUM, lineNUM ):
-  errorMSG = errorMAPPING[errorNUM] + " at Line " + f'{lineNUM + 1}'  # 0 PC implies line 1 !!!
-  return errorMSG
-
-#r
+########################################################################################
+# R-TYPE INSTRUCTIONS
 functions_r = {"add": ["0000000", "000"],                #opcode: [funct7, funct3]
              "sub": ["0100000", "000"], 
              "sll": ["0000000", "001"], 
@@ -99,12 +106,11 @@ def R_TYPE(instruction_list):
       return "e3"
       
     output = functions_r[operation][0] + reg3 + reg2 + functions_r[operation][1] + reg1 + "0110011"
-
     return output 
 
-#i
-# addi , sltiu , jalr , l{b|h|w|d}
+########################################################################################
 
+# I-TYPE INSTRUCTIONS
 map_I_TYPE = {"addi" :   ["0010011", "000"] , 
               "sltiu" :  ["0010011", "011"] , 
               "jalr" :   ["1100111", "000"] , 
@@ -135,10 +141,10 @@ def I_TYPE( I_instruction ):
   
   encoded = imm + rs + funct + rd + opc   
   return encoded
+  
+########################################################################################
 
-#s
-# s{b|h|w|d}
-
+# S-TYPE INSTRUCTIONS
 map_S_TYPE = {"sw" :     ["0100011","010"] }  
 
 def S_TYPE( S_instruction ):
@@ -161,7 +167,9 @@ def S_TYPE( S_instruction ):
   encoded = imm[0:7] + rd + rt + funct + imm[7:] + opc
   return encoded
 
-#b
+########################################################################################
+
+# B-TYPE INSTRUCTIONS
 map_B_TYPE = { "beq" : ["1100011", "000"] , 
               "bne" : ["1100011", "001"] , 
               "blt" : ["1100011", "100"] , 
@@ -188,8 +196,10 @@ def B_TYPE( B_instruction ):
   
   decoded = imm[0:7] + rs2 + rs1 + funct3 + imm[7:11] + imm[0] + opc
   return decoded
+  
+########################################################################################
 
-#u
+# U-TYPE INSTRUCTIONS
 functions_utype = {"lui":"0110111",
                    "auipc":"0010111"}
 
@@ -212,8 +222,10 @@ def U_TYPE(U_instruction):
     op_c= functions_utype[U_instruction[0]]
 
     return  imm+reg+op_c
+  
+########################################################################################
 
-#j
+# J-TYPE INSTRUCTIONS
 functions_jtype={"jal":"1101111"}
 
 def J_TYPE(J_instruction):
@@ -234,8 +246,9 @@ def J_TYPE(J_instruction):
       return "e3"
 
   op_code=functions_jtype[J_instruction[0]]
-         
   return imm+reg+op_code
+  
+########################################################################################
 
 virtual_halt = "00000000000000000000000001100011"
 
@@ -264,8 +277,8 @@ label_dict = {}
 error_flag = False
 output_list = []
 
+# NOTE : THIS CODE IS STORING THE LABEL WITH LINE NUMBER and then REMOVING THE LABEL from the line.
 for i in range(len(assembly)):
-  # NOTE : THIS CODE IS STORING THE LABEL WITH LINE NUMBER and then REMOVING THE LABEL from the line.
     if  (':'  in assembly[i]) :
         temp_label = (re.split( ":", assembly[i] ))[0]
       
@@ -276,6 +289,8 @@ for i in range(len(assembly)):
           break
         assembly[i] = assembly[i].replace(temp_label + ": ", "")
         label_dict[temp_label] = i
+
+########################################################################################
 
 if error_flag == False:
     PC = 0
@@ -375,6 +390,7 @@ if error_flag == False:
         output_list.clear()
         output_list.append( errorGEN("e6", PC-1) )
 
+########################################################################################
 print(output_list)
 
 # CODE FOR OUTPUT FILE
