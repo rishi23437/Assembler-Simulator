@@ -276,7 +276,7 @@ for i in range(len(assembly)):
         
         label_dict[temp_label[0]] = i
 
-if error_flag = False:
+if error_flag == False:
     PC = 0
     vh_flag = False
     vh_num = -1
