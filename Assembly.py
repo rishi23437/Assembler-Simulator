@@ -252,20 +252,6 @@ def J_TYPE(J_instruction):
 
 virtual_halt = "00000000000000000000000001100011"
 
-# def label_in_bounds(label):
-#     """
-#     label: an Integer, in decimal, signed.
-#     this function returns e8 if label is out of bounds, else True.
-#     """
-#     global PC, assembly
-
-#     line_to_jump = PC + label
-#     if line_to_jump >= 0 and line_to_jump < len(assembly):
-#         return True
-#     else:
-#         return "e8"
-
-
 with open(r"C:\Users\Mayank\OneDrive\Desktop\COproj.txt", 'r') as pointer:
     assembly = pointer.readlines()
     print(assembly)
@@ -311,41 +297,19 @@ if error_flag == False:
           
         instruction_elements = re.split(' |,|\(|\)|:|\n', instruction)
         instruction_elements = [element for element in instruction_elements if element != ""]
-
-  # this code not needed anymore !!    
-        # #if label is present in instruction_elements, type will be 2nd element of the list(after removing "")
-        # #NOTE: Label has not been removed
-        # try: 
-        #     integer = int(instruction_elements[0])
-        #     instruction_elements = [element for element in instruction_elements if element != ""]
-        #     type = instruction_elements[1]
-        # except: type = instruction_elements[0]
-    
+   
         type = instruction_elements[0]
       
         if type in instruction_mapping["r_type"]:
             output = R_TYPE(instruction_elements)
       
-        elif type in instruction_mapping["i_type"]:
-            # if type == "jalr":
-            #     label_num = int(instruction_elements[-1])               #to check if resultant line(to jump to) is out of bounds
-            #     if label_in_bounds(label_num) == "e8":
-            #         output_list.clear()
-            #         output_list.append(errorGEN("e8", PC))
-            #         break
-          
+        elif type in instruction_mapping["i_type"]:        
             output = I_TYPE(instruction_elements)
     
         elif type in instruction_mapping["s_type"]:
             output = S_TYPE(instruction_elements)
     
         elif type in instruction_mapping["b_type"]:
-            # label_num = int(instruction_elements[-1])              #to check if resultant line(to jump to) is out of bounds
-            # if label_in_bounds(label_num) == "e8":
-            #     output_list.clear()
-            #     output_list.append(errorGEN("e8", PC))
-            #     break
-          
             output = B_TYPE(instruction_elements)
     
             if (output == virtual_halt):
@@ -356,12 +320,6 @@ if error_flag == False:
             output = U_TYPE(instruction_elements)
     
         elif type in list(instruction_mapping["j_type"]):
-            # label_num = int(instruction_elements[-1])              #to check if resultant line(to jump to) is out of bounds
-            # if label_in_bounds(label_num) == "e8":
-            #     output_list.clear()
-            #     output_list.append(errorGEN("e8", PC))
-            #     break
-          
             output = J_TYPE(instruction_elements)
     
        # code for LABEL
