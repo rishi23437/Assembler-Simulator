@@ -5,6 +5,8 @@ map_B_TYPE = { "beq" : ["1100011", "000"] ,
               "bltu" : ["1100011", "110"] , 
               "bgeu" : ["1100011", "111"] }
 
+
+# check if label is not present in the dictionary then give error "e10"
 def B_TYPE( B_instruction ):
   """
   B_instruction is a list of the form [[opcode, funct3], rs1, rs2, immediate value not converted in bits]
