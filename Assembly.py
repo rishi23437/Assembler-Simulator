@@ -270,7 +270,7 @@ for i in range(len(assembly)):
       
         if temp_label in label_dict:
           error_flag = True
-          output = error_GEN("e9", label_dict[temp_label] + 1)
+          output = error_GEN("e9", i+1 )
           output_list.append(output)
           return
         
