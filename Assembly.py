@@ -256,6 +256,15 @@ with open(r"C:\Users\Mayank\OneDrive\Desktop\COproj.txt", 'r') as pointer:
     assembly = pointer.readlines()
     print(assembly)
 
+'''
+Stores the line number of labels in label_dict
+'''
+label_dict={}
+for i in range(len(assembly)):
+    if  (':'  in assembly[i]) :
+        temp_label=re.split(":",assembly[i])
+        label_dict[temp_label[0]] = i+1
+
 PC = 0
 output_list = []
 
