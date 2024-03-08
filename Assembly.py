@@ -256,14 +256,14 @@ with open(r"C:\Users\Mayank\OneDrive\Desktop\COproj.txt", 'r') as pointer:
     assembly = pointer.readlines()
     print(assembly)
 
-'''
-Stores the line number of labels in label_dict
-'''
+
+#Stores the line number of labels in label_dict
+
 label_dict={}
 for i in range(len(assembly)):
     if  (':'  in assembly[i]) :
-        temp_label=re.split(":",assembly[i])
-        label_dict[temp_label[0]] = i+1
+        temp_label = re.split( ":", assembly[i] )
+        label_dict[temp_label[0]] = i
 
 PC = 0
 output_list = []
@@ -300,12 +300,12 @@ while ( PC < (len(assembly) ) ):
         output = R_TYPE(instruction_elements)
   
     elif type in instruction_mapping["i_type"]:
-        if type == "jalr":
-            label_num = int(instruction_elements[-1])               #to check if resultant line(to jump to) is out of bounds
-            if label_in_bounds(label_num) == "e8":
-                output_list.clear()
-                output_list.append(errorGEN("e8", PC))
-                break
+        # if type == "jalr":
+        #     label_num = int(instruction_elements[-1])               #to check if resultant line(to jump to) is out of bounds
+        #     if label_in_bounds(label_num) == "e8":
+        #         output_list.clear()
+        #         output_list.append(errorGEN("e8", PC))
+        #         break
       
         output = I_TYPE(instruction_elements)
 
