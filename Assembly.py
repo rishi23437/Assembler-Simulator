@@ -266,7 +266,7 @@ output_list = []
 
 for i in range(len(assembly)):
     if  (':'  in assembly[i]) :
-        temp_label = re.split( ":", assembly[i] )
+        temp_label = (re.split( ":", assembly[i] ))[0]
       
         if temp_label in label_dict:
           error_flag = True
