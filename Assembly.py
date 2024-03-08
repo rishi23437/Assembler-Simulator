@@ -265,6 +265,7 @@ error_flag = False
 output_list = []
 
 for i in range(len(assembly)):
+  # NOTE : THIS CODE IS STORING THE LABEL WITH LINE NUMBER and then REMOVING THE LABEL from the line.
     if  (':'  in assembly[i]) :
         temp_label = (re.split( ":", assembly[i] ))[0]
       
@@ -273,7 +274,7 @@ for i in range(len(assembly)):
           output = error_GEN("e9", i+1 )
           output_list.append(output)
           break
-        
+        assembly[i] = assembly[i].replace(temp_label + ": ", "")
         label_dict[temp_label] = i
 
 if error_flag == False:
