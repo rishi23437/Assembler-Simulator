@@ -311,17 +311,18 @@ if error_flag == False:
           
         instruction_elements = re.split(' |,|\(|\)|:|\n', instruction)
         instruction_elements = [element for element in instruction_elements if element != ""]
+
+  # this code not needed anymore !!    
+        # #if label is present in instruction_elements, type will be 2nd element of the list(after removing "")
+        # #NOTE: Label has not been removed
+        # try: 
+        #     integer = int(instruction_elements[0])
+        #     instruction_elements = [element for element in instruction_elements if element != ""]
+        #     type = instruction_elements[1]
+        # except: type = instruction_elements[0]
     
-        #if label is present in instruction_elements, type will be 2nd element of the list(after removing "")
-        #NOTE: Label has not been removed
-        try: 
-            integer = int(instruction_elements[0])
-            instruction_elements = [element for element in instruction_elements if element != ""]
-            type = instruction_elements[1]
-        except: type = instruction_elements[0]
-    
-        print(instruction_elements)
-        
+        type = instruction_elements[0]
+      
         if type in instruction_mapping["r_type"]:
             output = R_TYPE(instruction_elements)
       
