@@ -260,110 +260,119 @@ with open(r"C:\Users\Mayank\OneDrive\Desktop\COproj.txt", 'r') as pointer:
 
 #Stores the line number of labels in label_dict
 
-label_dict={}
+label_dict = {}
+error_flag = False
+output_list = []
+
 for i in range(len(assembly)):
     if  (':'  in assembly[i]) :
         temp_label = re.split( ":", assembly[i] )
+      
+        if temp_label in label_dict:
+          error_flag = True
+          output = error_GEN("e9", label_dict[temp_label] + 1)
+          output_list.append(output)
+          return
+        
         label_dict[temp_label[0]] = i
 
-PC = 0
-output_list = []
-
-vh_flag = False
-vh_num = -1
-
-while ( PC < (len(assembly) ) ):
-    instruction = (assembly[PC]).lower()
-  
-    if (instruction == "\n"):                                      #for Empty lines
-        PC += 1
-        continue
-
-    if (vh_flag == True):
-        output_list.clear()
-        output_list.append( errorGEN("e7", vh_num) )
-        break
-      
-    instruction_elements = re.split(' |,|\(|\)|:|\n', instruction)
-    instruction_elements = [element for element in instruction_elements if element != ""]
-
-    #if label is present in instruction_elements, type will be 2nd element of the list(after removing "")
-    #NOTE: Label has not been removed
-    try: 
-        integer = int(instruction_elements[0])
-        instruction_elements = [element for element in instruction_elements if element != ""]
-        type = instruction_elements[1]
-    except: type = instruction_elements[0]
-
-    print(instruction_elements)
+if error_flag = False:
+    PC = 0
+    vh_flag = False
+    vh_num = -1
     
-    if type in instruction_mapping["r_type"]:
-        output = R_TYPE(instruction_elements)
-  
-    elif type in instruction_mapping["i_type"]:
-        # if type == "jalr":
-        #     label_num = int(instruction_elements[-1])               #to check if resultant line(to jump to) is out of bounds
-        #     if label_in_bounds(label_num) == "e8":
-        #         output_list.clear()
-        #         output_list.append(errorGEN("e8", PC))
-        #         break
+    while ( PC < (len(assembly) ) ):
+        instruction = (assembly[PC]).lower()
       
-        output = I_TYPE(instruction_elements)
-
-    elif type in instruction_mapping["s_type"]:
-        output = S_TYPE(instruction_elements)
-
-    elif type in instruction_mapping["b_type"]:
-        label_num = int(instruction_elements[-1])              #to check if resultant line(to jump to) is out of bounds
-        if label_in_bounds(label_num) == "e8":
+        if (instruction == "\n"):                                      #for Empty lines
+            PC += 1
+            continue
+    
+        if (vh_flag == True):
             output_list.clear()
-            output_list.append(errorGEN("e8", PC))
+            output_list.append( errorGEN("e7", vh_num) )
             break
-      
-        output = B_TYPE(instruction_elements)
-
-        if (output == virtual_halt):
-          vh_flag = True
-          vh_num = PC
           
-    elif type in list(instruction_mapping["u_type"]):
-        output = U_TYPE(instruction_elements)
-
-    elif type in list(instruction_mapping["j_type"]):
-        label_num = int(instruction_elements[-1])              #to check if resultant line(to jump to) is out of bounds
-        if label_in_bounds(label_num) == "e8":
+        instruction_elements = re.split(' |,|\(|\)|:|\n', instruction)
+        instruction_elements = [element for element in instruction_elements if element != ""]
+    
+        #if label is present in instruction_elements, type will be 2nd element of the list(after removing "")
+        #NOTE: Label has not been removed
+        try: 
+            integer = int(instruction_elements[0])
+            instruction_elements = [element for element in instruction_elements if element != ""]
+            type = instruction_elements[1]
+        except: type = instruction_elements[0]
+    
+        print(instruction_elements)
+        
+        if type in instruction_mapping["r_type"]:
+            output = R_TYPE(instruction_elements)
+      
+        elif type in instruction_mapping["i_type"]:
+            # if type == "jalr":
+            #     label_num = int(instruction_elements[-1])               #to check if resultant line(to jump to) is out of bounds
+            #     if label_in_bounds(label_num) == "e8":
+            #         output_list.clear()
+            #         output_list.append(errorGEN("e8", PC))
+            #         break
+          
+            output = I_TYPE(instruction_elements)
+    
+        elif type in instruction_mapping["s_type"]:
+            output = S_TYPE(instruction_elements)
+    
+        elif type in instruction_mapping["b_type"]:
+            label_num = int(instruction_elements[-1])              #to check if resultant line(to jump to) is out of bounds
+            if label_in_bounds(label_num) == "e8":
+                output_list.clear()
+                output_list.append(errorGEN("e8", PC))
+                break
+          
+            output = B_TYPE(instruction_elements)
+    
+            if (output == virtual_halt):
+              vh_flag = True
+              vh_num = PC
+              
+        elif type in list(instruction_mapping["u_type"]):
+            output = U_TYPE(instruction_elements)
+    
+        elif type in list(instruction_mapping["j_type"]):
+            label_num = int(instruction_elements[-1])              #to check if resultant line(to jump to) is out of bounds
+            if label_in_bounds(label_num) == "e8":
+                output_list.clear()
+                output_list.append(errorGEN("e8", PC))
+                break
+          
+            output = J_TYPE(instruction_elements)
+    
+       # code for LABEL
+      
+        else:
+            # opcode not from the mentioned mnemonics
             output_list.clear()
-            output_list.append(errorGEN("e8", PC))
+            output_list.append( errorGEN("e2", PC) )
+            break
+    
+        if ( output == "e1" ):
+            output_list.clear()
+            output_list.append( errorGEN("e1", PC) )
             break
       
-        output = J_TYPE(instruction_elements)
-
-   # code for LABEL
-  
+        if ( output == "e3" ):
+            output_list.clear()
+            output_list.append( errorGEN("e3", PC) )
+            break
+      
+        output_list.append(output)
+        PC += 1
+    
     else:
-        # opcode not from the mentioned mnemonics
+      # this CODE will not be execute if while has been exited due to a BREAK statement
+      if (vh_flag == False):
         output_list.clear()
-        output_list.append( errorGEN("e2", PC) )
-        break
-
-    if ( output == "e1" ):
-        output_list.clear()
-        output_list.append( errorGEN("e1", PC) )
-        break
-  
-    if ( output == "e3" ):
-        output_list.clear()
-        output_list.append( errorGEN("e3", PC) )
-        break
-  
-    output_list.append(output)
-    PC += 1
-
-else:
-  # this CODE will not be execute if while has been exited due to a BREAK statement
-  if (vh_flag == False):
-    output_list.clear()
-    output_list.append( errorGEN("e6", PC-1) )
+        output_list.append( errorGEN("e6", PC-1) )
 
 print(output_list)
 
