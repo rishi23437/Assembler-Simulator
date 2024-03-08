@@ -31,7 +31,8 @@ errorMAPPING = {"e1": "Error: overflow detected in immediate value" ,
                 "e6": "Error: Virtual Halt missing after last instruction",
                 "e7": "Error: Virtual Halt encountered before remaining instructions", 
                 "e8": "Error: Address given in label is out of bounds",
-                "e9": "Error: Label name not unique" }                
+                "e9": "Error: Label name not unique",
+               "e10": "Error: Label given is not present" }                
               
 def errorGEN ( errorNUM, lineNUM ):
   errorMSG = errorMAPPING[errorNUM] + " at Line " + f'{lineNUM + 1}'  # 0 PC implies line 1 !!!
