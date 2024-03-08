@@ -284,7 +284,7 @@ for i in range(len(assembly)):
       
         if temp_label in label_dict:
           error_flag = True
-          output = error_GEN("e9", i+1 )
+          output = errorGEN("e9", i+1 )
           output_list.append(output)
           break
         assembly[i] = assembly[i].replace(temp_label + ": ", "")
