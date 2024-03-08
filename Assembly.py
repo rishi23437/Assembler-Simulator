@@ -339,11 +339,11 @@ if error_flag == False:
             output = S_TYPE(instruction_elements)
     
         elif type in instruction_mapping["b_type"]:
-            label_num = int(instruction_elements[-1])              #to check if resultant line(to jump to) is out of bounds
-            if label_in_bounds(label_num) == "e8":
-                output_list.clear()
-                output_list.append(errorGEN("e8", PC))
-                break
+            # label_num = int(instruction_elements[-1])              #to check if resultant line(to jump to) is out of bounds
+            # if label_in_bounds(label_num) == "e8":
+            #     output_list.clear()
+            #     output_list.append(errorGEN("e8", PC))
+            #     break
           
             output = B_TYPE(instruction_elements)
     
@@ -355,11 +355,11 @@ if error_flag == False:
             output = U_TYPE(instruction_elements)
     
         elif type in list(instruction_mapping["j_type"]):
-            label_num = int(instruction_elements[-1])              #to check if resultant line(to jump to) is out of bounds
-            if label_in_bounds(label_num) == "e8":
-                output_list.clear()
-                output_list.append(errorGEN("e8", PC))
-                break
+            # label_num = int(instruction_elements[-1])              #to check if resultant line(to jump to) is out of bounds
+            # if label_in_bounds(label_num) == "e8":
+            #     output_list.clear()
+            #     output_list.append(errorGEN("e8", PC))
+            #     break
           
             output = J_TYPE(instruction_elements)
     
