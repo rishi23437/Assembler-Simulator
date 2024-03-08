@@ -48,7 +48,7 @@ def label_in_bounds(label):
         return "e8"
 
 
-  //this code not needed anymore !!    
+  #this code not needed anymore !!    
         #if label is present in instruction_elements, type will be 2nd element of the list(after removing "")
         #NOTE: Label has not been removed
         try: 
