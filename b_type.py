@@ -1,3 +1,4 @@
+# B-TYPE INSTRUCTIONS
 map_B_TYPE = { "beq" : ["1100011", "000"] , 
               "bne" : ["1100011", "001"] , 
               "blt" : ["1100011", "100"] , 
@@ -5,12 +6,14 @@ map_B_TYPE = { "beq" : ["1100011", "000"] ,
               "bltu" : ["1100011", "110"] , 
               "bgeu" : ["1100011", "111"] }
 
-
-# check if label is not present in the dictionary then give error "e10"
-def B_TYPE( B_instruction ):
+def B_TYPE( B_instruction , pc ):
   """
   B_instruction is a list of the form [[opcode, funct3], rs1, rs2, immediate value not converted in bits]
   """
+  try:
+    B_instruction[3] = int(B_instruction[3])
+  except:
+    B_instruction[3] = (((pc) - label_dict[B_instruction[3]])*4)
   imm = sext(int(B_instruction[3]),12)
   if (imm == "e1"):
       return imm
@@ -26,3 +29,5 @@ def B_TYPE( B_instruction ):
   
   decoded = imm[0:7] + rs2 + rs1 + funct3 + imm[7:11] + imm[0] + opc
   return decoded
+  
+########################################################################################
