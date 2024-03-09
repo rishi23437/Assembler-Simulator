@@ -6,7 +6,7 @@ map_B_TYPE = { "beq" : ["1100011", "000"] ,
               "bltu" : ["1100011", "110"] , 
               "bgeu" : ["1100011", "111"] }
 
-def B_TYPE( B_instruction , pc ):
+def B_TYPE( B_instruction ):
   """
   B_instruction is a list of the form [[opcode, funct3], rs1, rs2, immediate value not converted in bits]
   """
@@ -16,7 +16,7 @@ def B_TYPE( B_instruction , pc ):
     label = label_dict.get(B_instruction[3])
     if (label == None):
        return "e10"
-    B_instruction[3] = (((PC) - label)*4)
+    B_instruction[3] = ((label-(PC))*4)
   imm = sext(int(B_instruction[3]),12)
   if (imm == "e1"):
       return imm
