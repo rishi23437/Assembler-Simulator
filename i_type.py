@@ -10,13 +10,23 @@ def I_TYPE( I_instruction ):
   '''
   rd = reg_ENCODE.get(I_instruction[1])
   
-  if ((I_instruction[0] != "lw"):
+  if (I_instruction[0] not in {"lw", "jalr"}):
       imm = sext(int(I_instruction[3]),12)
       rs = reg_ENCODE.get(I_instruction[2])    
 
-  else:
+  elif I_instruction[0] == "lw":
       imm = sext(int(I_instruction[2]),12)
       rs = reg_ENCODE.get(I_instruction[3]) 
+
+  elif I_instruction[0] == "jalr":
+      rs = reg_ENCODE.get(I_instruction[2])         
+      try:
+        imm = sext(int(I_instruction[3]),12))
+      except:
+        label = label_dict.get(I_instruction[3])
+        if (label == None):
+           return "e10"
+        imm = ((label- PC)*4)
                            
   if (imm == "e1"):
       return imm
