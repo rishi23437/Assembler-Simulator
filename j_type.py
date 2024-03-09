@@ -14,7 +14,7 @@ def J_TYPE(J_instruction):
     label = label_dict.get(J_instruction[2])
     if (label == None):
        return "e10"
-    J_instruction[2] = (((PC) - label)*4)
+    J_instruction[2] = ((label - PC)*4)
     
   imm=sext(int(J_instruction[2]),20)
   if (imm == "e1"):
