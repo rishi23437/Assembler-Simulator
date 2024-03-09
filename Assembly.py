@@ -178,10 +178,14 @@ map_B_TYPE = { "beq" : ["1100011", "000"] ,
               "bltu" : ["1100011", "110"] , 
               "bgeu" : ["1100011", "111"] }
 
-def B_TYPE( B_instruction ):
+def B_TYPE( B_instruction , pc ):
   """
   B_instruction is a list of the form [[opcode, funct3], rs1, rs2, immediate value not converted in bits]
   """
+  try:
+    B_instruction[3] = int(B_instruction[3])
+  except:
+    B_instruction[3] = (((pc) - label_dict[B_instruction[3]])*4)
   imm = sext(int(B_instruction[3]),12)
   if (imm == "e1"):
       return imm
@@ -311,7 +315,7 @@ if error_flag == False:
             output = S_TYPE(instruction_elements)
     
         elif type in instruction_mapping["b_type"]:
-            output = B_TYPE(instruction_elements)
+            output = B_TYPE(instruction_elements,PC)
           #label present or not will be checked within B_TYPE() --> label out of bound function in recycle bin
             if (output == virtual_halt):
               vh_flag = True
@@ -354,8 +358,8 @@ if error_flag == False:
 print(output_list)
 
 # CODE FOR OUTPUT FILE
-# with open(r"C:\Users\Mayank\OneDrive\Desktop\COproj.txt", 'a') as pointer:
-#     pointer.write('\n'*2)
-#     for i in output_list:
-#         pointer.write(f'{i}')
-#         pointer.write('\n')
+with open(r"C:\Users\Mayank\OneDrive\Desktop\COproj.txt", 'a') as pointer:
+    pointer.write('\n'*2)
+    for i in output_list:
+        pointer.write(f'{i}')
+        pointer.write('\n')
