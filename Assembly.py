@@ -243,18 +243,25 @@ def J_TYPE(J_instruction):
 
   returns : 32 bit binary sequence
   '''
-  
+  try:
+    J_instruction[2] = int(J_instruction[2])
+  except:
+    label = label_dict.get(J_instruction[2])
+    if (label == None):
+       return "e10"
+    J_instruction[2] = (((PC) - label)*4)
+    
   imm=sext(int(J_instruction[2]),20)
   if (imm == "e1"):
       return imm
-  imm=imm[0]+imm[10:20]+imm[9]+imm[1:9]
+  imm = imm[0] + imm[10:20] + imm[9] + imm[1:9]
   
   reg=reg_ENCODE.get(J_instruction[1])
   if (reg == None):
       return "e3"
-
-  op_code=functions_jtype[J_instruction[0]]
-  return imm+reg+op_code
+    
+  op_code = functions_jtype[J_instruction[0]]         
+  return imm + reg + op_code
   
 ########################################################################################
 
