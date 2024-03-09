@@ -16,7 +16,7 @@ def B_TYPE( B_instruction , pc ):
     label = label_dict.get(B_instruction[3])
     if (label == None):
        return "e10"
-    B_instruction[3] = (((pc) - label)*4)
+    B_instruction[3] = (((PC) - label)*4)
   imm = sext(int(B_instruction[3]),12)
   if (imm == "e1"):
       return imm
