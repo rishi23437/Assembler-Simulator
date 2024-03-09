@@ -185,7 +185,10 @@ def B_TYPE( B_instruction , pc ):
   try:
     B_instruction[3] = int(B_instruction[3])
   except:
-    B_instruction[3] = (((pc) - label_dict[B_instruction[3]])*4)
+    label = label_dict.get(B_instruction[3])
+    if (label == None):
+       return "e10"
+    B_instruction[3] = (((pc) - label)*4)
   imm = sext(int(B_instruction[3]),12)
   if (imm == "e1"):
       return imm
@@ -335,14 +338,9 @@ if error_flag == False:
             output_list.append( errorGEN("e2", PC) )
             break
     
-        if ( output == "e1" ):
+        if ( output in errorMAPPING ):
             output_list.clear()
-            output_list.append( errorGEN("e1", PC) )
-            break
-      
-        if ( output == "e3" ):
-            output_list.clear()
-            output_list.append( errorGEN("e3", PC) )
+            output_list.append( errorGEN(output, PC) )
             break
       
         output_list.append(output)
@@ -358,8 +356,8 @@ if error_flag == False:
 print(output_list)
 
 # CODE FOR OUTPUT FILE
-with open(r"C:\Users\Mayank\OneDrive\Desktop\COproj.txt", 'a') as pointer:
-    pointer.write('\n'*2)
-    for i in output_list:
-        pointer.write(f'{i}')
-        pointer.write('\n')
+# with open(r"C:\Users\Mayank\OneDrive\Desktop\COproj.txt", 'a') as pointer:
+#     pointer.write('\n'*2)
+#     for i in output_list:
+#         pointer.write(f'{i}')
+#         pointer.write('\n')
