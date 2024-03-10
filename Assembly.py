@@ -231,7 +231,7 @@ def U_TYPE(U_instruction):
     returns : Above provided U_instrution into 32 bit binary format in a string
     '''
   
-    imm = sext(int(U_instruction[2]),20)
+    imm = (sext(int(U_instruction[2]),32))[:20]
     if (imm == "e1"):
       return imm
       
