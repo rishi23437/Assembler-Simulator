@@ -16,7 +16,7 @@ def J_TYPE(J_instruction):
        return "e10"
     J_instruction[2] = ((label - PC)*4)
     
-  imm=sext(int(J_instruction[2]),20)
+  imm=sext(int(J_instruction[2]),21)
   if (imm == "e1"):
       return imm
   imm = imm[0] + imm[10:20] + imm[9] + imm[1:9]
