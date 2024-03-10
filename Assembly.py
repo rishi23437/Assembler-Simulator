@@ -280,8 +280,6 @@ virtual_halt = "00000000000000000000000001100011"
 
 with open(r"C:\Users\Mayank\OneDrive\Desktop\COproj.txt", 'r') as pointer:
     assembly = pointer.readlines()
-    print(assembly)
-
 
 #Stores the line number of labels in label_dict
 
@@ -371,8 +369,9 @@ if error_flag == False:
         output_list.append( errorGEN("e6", PC-1) )
 
 ########################################################################################
-print(output_list)
-
+for line in output_list:
+  print (line)
+  
 # CODE FOR OUTPUT FILE
 # with open(r"C:\Users\Mayank\OneDrive\Desktop\COproj.txt", 'a') as pointer:
 #     pointer.write('\n'*2)
