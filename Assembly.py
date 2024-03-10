@@ -87,7 +87,7 @@ def sext(number, bits):
 
 ########################################################################################
 # R-TYPE INSTRUCTIONS
-functions_r = {"add": ["0000000", "000"],                #opcode: [funct7, funct3]
+functions_r = {"add": ["0000000", "000"],                #operation: [funct7, funct3]
              "sub": ["0100000", "000"], 
              "sll": ["0000000", "001"], 
              "slt": ["0000000", "010"], 
