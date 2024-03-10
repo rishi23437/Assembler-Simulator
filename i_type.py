@@ -21,7 +21,7 @@ def I_TYPE( I_instruction ):
   elif I_instruction[0] == "jalr":
       rs = reg_ENCODE.get(I_instruction[2])         
       try:
-        imm = sext(int(I_instruction[3]),12))
+        imm = sext(int(I_instruction[3]),12)
       except:
         label = label_dict.get(I_instruction[3])
         if (label == None):
