@@ -294,7 +294,7 @@ for i in range(len(assembly)):
       
         if temp_label in label_dict:
           error_flag = True
-          output = errorGEN("e9", i+1 )
+          output = errorGEN("e9", i )
           print(output)
           output_list.append(output)
           break
