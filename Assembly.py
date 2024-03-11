@@ -295,6 +295,7 @@ for i in range(len(assembly)):
         if temp_label in label_dict:
           error_flag = True
           output = errorGEN("e9", i+1 )
+          print(output)
           output_list.append(output)
           break
         assembly[i] = assembly[i].replace(temp_label + ": ", "")
@@ -351,12 +352,16 @@ if error_flag == False:
         else:
             # opcode not from the mentioned mnemonics
             output_list.clear()
-            output_list.append( errorGEN("e2", PC) )
+            output = errorGEN("e2", PC)
+            output_list.append( output )
+            print (output)
             break
     
         if ( output in errorMAPPING ):
             output_list.clear()
-            output_list.append( errorGEN(output, PC) )
+            error1 = errorGEN(output, PC)
+            output_list.append( error1 )
+            print (error1)
             break
       
         output_list.append(output)
@@ -366,7 +371,9 @@ if error_flag == False:
       # this CODE will not be execute if while has been exited due to a BREAK statement
       if (vh_flag == False):
         output_list.clear()
-        output_list.append( errorGEN("e11", PC-1) )
+        error2 = errorGEN("e11", PC-1)
+        output_list.append( error2 )
+        print (error2)
 
 ########################################################################################
 
