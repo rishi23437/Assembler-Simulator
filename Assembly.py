@@ -314,10 +314,10 @@ if error_flag == False:
             PC += 1
             continue
     
-        if (vh_flag == True):
-            output_list.clear()
-            output_list.append( errorGEN("e7", vh_num) )
-            break
+        # if (vh_flag == True):
+        #     output_list.clear()
+        #     output_list.append( errorGEN("e7", vh_num) )
+        #     break
           
         instruction_elements = re.split(' |,|\(|\)|:|\n', instruction)
         instruction_elements = [element for element in instruction_elements if element != ""]
@@ -366,7 +366,7 @@ if error_flag == False:
       # this CODE will not be execute if while has been exited due to a BREAK statement
       if (vh_flag == False):
         output_list.clear()
-        output_list.append( errorGEN("e6", PC-1) )
+        output_list.append( errorGEN("e11", PC-1) )
 
 ########################################################################################
 for line in output_list:
