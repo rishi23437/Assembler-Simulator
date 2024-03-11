@@ -278,11 +278,11 @@ def J_TYPE(J_instruction):
 
 virtual_halt = "00000000000000000000000001100011"
 
-with open(r"C:\Users\Mayank\OneDrive\Desktop\COproj.txt", 'r') as pointer:
+import sys
+with open (sys.argv[1], "r") as pointer:
     assembly = pointer.readlines()
-
+  
 #Stores the line number of labels in label_dict
-
 label_dict = {}
 error_flag = False
 output_list = []
@@ -369,12 +369,9 @@ if error_flag == False:
         output_list.append( errorGEN("e11", PC-1) )
 
 ########################################################################################
-for line in output_list:
-  print (line)
-  
-# CODE FOR OUTPUT FILE
-# with open(r"C:\Users\Mayank\OneDrive\Desktop\COproj.txt", 'a') as pointer:
-#     pointer.write('\n'*2)
-#     for i in output_list:
-#         pointer.write(f'{i}')
-#         pointer.write('\n')
+
+with open (sys.argv[2], "w") as pointer:
+  if (len(output_list) != 0):
+      for idx in range(len(output_list) - 1):
+         pointer.write(output_list[idx] + "\n")
+      pointer.write(output_list[-1])
