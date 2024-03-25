@@ -20,6 +20,8 @@ instruction_BONUS = { }
 
 def bin_to_dec ( number ) :
   # number is a STRING
+  # length is atleast 1
+  
   dec = 0
   pow = 0
 
