@@ -1,3 +1,5 @@
+# check the excecute which one used in jal ??
+# fix assembler errors
 
 instruction_R = {0110011}  #use if else inside the R type function... 
 
@@ -36,6 +38,10 @@ def bin_to_dec ( number ) :
   dec -= (int(number[0]) * (2**(length-1)) )
 
   return dec
+
+####################################################################################################################
+
+
 
         
   
