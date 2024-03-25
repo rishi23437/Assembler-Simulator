@@ -7,5 +7,6 @@ def S_TYPE( line ):
   funct3 = line[17:20]
   opcode = line[25:32]
 
+  #sw
   memory[register[rs1] + bin_to_dec(imm)] = register[rs2]
     
