@@ -41,11 +41,11 @@ def bin_to_dec ( number ) :
 
 ####################################################################################################################
 
-register = { }
+register = { } # to get content of register from its binary
 
-register_name = { }
+register_name = { } # to decode the register name from its binary
 
-memory = { }
+memory = { } # to get content of memory from its binary
 
         
   
