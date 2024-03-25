@@ -15,3 +15,28 @@ instruction_U = { 0110111 : 'lui',
 instruction_J = { 1101111 : 'jal'}
 
 instruction_BONUS = { }
+
+################################################################################################################
+
+def bin_to_dec ( number ) :
+  # number is a STRING
+  dec = 0
+  pow = 0
+
+  length = len(number)
+
+  for i in range( length - 1, 0, -1 ):
+    dec += (int(number[i]) * (2**pow) )
+    pow += 1
+
+  dec += (int(number[0]) * (2**(len-1)) )
+
+  return dec
+
+        
+  
+
+
+      
+      
+        
