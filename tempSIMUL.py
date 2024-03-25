@@ -1,4 +1,3 @@
-#main gaali nahi deti hoon but its never too late i guess
 
 instruction_R = {0110011}  #use if else inside the R type function... 
 
