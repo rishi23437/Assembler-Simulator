@@ -26,7 +26,9 @@ def bin_to_dec ( number ) :
   pow = 0
 
   length = len(number)
-
+  if length == 0:
+    return 0
+    
   for i in range( length - 1, 0, -1 ):
     dec += (int(number[i]) * (2**pow) )
     pow += 1
