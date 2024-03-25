@@ -1,6 +1,11 @@
 # check the excecute which one used in jal ??
 # fix assembler errors
 
+#Assumption : all syntactical errors have been handled by assembler. So each line in the input file is a valid 32 bit instruction
+
+
+#################################################################################################################
+
 instruction_R = {0110011}  #use if else inside the R type function... 
 
 instruction_I = { 0000011 : {010 : 'lw'},  #may not use these values associated with keys. keys is enough.
