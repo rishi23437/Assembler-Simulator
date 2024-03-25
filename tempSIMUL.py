@@ -31,7 +31,7 @@ def bin_to_dec ( number ) :
     dec += (int(number[i]) * (2**pow) )
     pow += 1
 
-  dec -= (int(number[0]) * (2**(len-1)) )
+  dec -= (int(number[0]) * (2**(length-1)) )
 
   return dec
 
