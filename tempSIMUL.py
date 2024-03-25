@@ -43,6 +43,10 @@ def bin_to_dec ( number ) :
 
 register = { }
 
+register_name = { }
+
+memory = { }
+
         
   
 
