@@ -1,5 +1,7 @@
 # check the excecute which one used in jal ??
 # fix assembler errors
+# NEW ERROR TYPE: x0 register CANNOT be changed!!
+# Bonus instruction - halt: Possilbe simulation: PC += len(simulator)
 
 #Assumption : all syntactical errors have been handled by assembler. So each line in the input file is a valid 32 bit instruction
 
