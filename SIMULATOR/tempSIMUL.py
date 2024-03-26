@@ -48,7 +48,7 @@ def bin_to_dec ( number ) :
 
 ####################################################################################################################
 
-register = { } # to get content of register from its binary
+register = { } # to get value stored in register from its binary. value is in DECIMAL
 
 register_name = { } # to decode the register name from its binary
 
