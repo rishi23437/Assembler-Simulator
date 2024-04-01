@@ -13,18 +13,18 @@ def I_TYPE( line ):
   #lw
   if opcode == '0000011':
   #rd = mem(rs1 + sext(imm[11:0]))
-    register[rd] = memory[register[rs1] + bin_to_dec(imm)]
+    register[rd] = memory[sext(bin_to_dec(register[rs1])) + bin_to_dec(imm), 17)]
 
   #addi
   if opcode == '0010011':
     if funct3 == '000':
-      register[rd] = register[rs] + bin_to_dec(imm)
+      register[rd] = sext(bin_to_dec(register[rs]) + bin_to_dec(imm),32)
 
   #sltiu
     elif funct3 == '011':
       #rd = 1. If unsigned(rs) < unsigned(imm)
-      if abs(register[rs]) < abs(bin_to_dec(imm)) :
-        register[rd] = 1   
+      if bin_to_dec(register[rs],'u') < bin_to_dec(bin_to_dec(imm),'u') :
+        register[rd] = sext(1,32)   
 
   #jalr
   
