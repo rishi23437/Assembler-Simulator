@@ -1,6 +1,8 @@
 def I_TYPE( line ):
   # line is 32 bits
 
+  global PC
+
   imm = line[0:12]
   rs1 = line[12:17]
   funct3 = line[17:20]
@@ -24,11 +26,12 @@ def I_TYPE( line ):
         register[rd] = 1   
 
   #jalr
+  
   if opcode == '1100111':
-    register[rd] = PC + 4
-    #And store(link) the return address in (rd).
-    PC = register_name['x6'] + bin_to_dec(imm)
-    if PC%2==1:
-      PC -= 1
+    # register[rd] = PC + 1 //
+    # #And store(link) the return address in (rd).
+    # PC = register_name['x6'] + bin_to_dec(imm)
+    # if PC%2==1:
+    #   PC -= 1
     
     
