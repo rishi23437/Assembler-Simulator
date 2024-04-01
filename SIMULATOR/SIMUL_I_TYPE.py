@@ -1,5 +1,6 @@
 def I_TYPE( line ):
   # line is 32 bits
+  # STORE 32 bits in 1 register
 
   global PC
 
