@@ -27,9 +27,11 @@ instruction_BONUS = { }
 
 ################################################################################################################
 
-def bin_to_dec ( number ) :
+def bin_to_dec ( number, sign = 's' ) :
   # number is a STRING
   # length is atleast 1
+  # sign : s means signed, u means unsigned
+  sign = sign.lower()
   
   dec = 0
   pow = 0
@@ -42,7 +44,12 @@ def bin_to_dec ( number ) :
     dec += (int(number[i]) * (2**pow) )
     pow += 1
 
-  dec -= (int(number[0]) * (2**(length-1)) )
+  
+  if sign == 's':
+    dec -= (int(number[0]) * (2**(length-1)) )
+  elif sign == 'u':
+    dec += (int(number[0]) * (2**(length-1)) )
+
 
   return dec
 
