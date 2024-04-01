@@ -8,5 +8,5 @@ def S_TYPE( line ):
   opcode = line[25:32]
 
   #sw
-  memory[register[rs1] + bin_to_dec(imm)] = register[rs2]
+  memory[bin_to_dec(register[rs1]) + bin_to_dec(imm)] = register[rs2]
     
