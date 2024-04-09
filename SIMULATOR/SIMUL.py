@@ -11,16 +11,14 @@ from bitstring import Bits
 #################################################################################################################
 
 def display_reg(program_ctr, memory_reg):
-    inp_f=open("file_name.txt",'a')
-    number = sext(str(program_ctr))
-    
-    inp_f.write(number, 32))
+    global output
+    number = sext(str(program_ctr), 32)
+    line = ''
+    line = number
     for reg in memory_reg:
-        inp_f.write(' ')
-        inp_f.write(memory_reg[reg])
-    inp_f.write('/n')
-    inp_f.close()
-
+        line = line + " " + memory_reg[reg]
+    output.append(line)
+    
 #################################################################################################################
 
 instruction_R = {0110011}  #use if else inside the R type function... 
@@ -175,7 +173,7 @@ while (PC <  len( binary ) ):
   if opcode in instruction_J:
           J_TYPE(line)
 
-  display(PC, register)
+  display_reg(PC, register)
   
   
 
