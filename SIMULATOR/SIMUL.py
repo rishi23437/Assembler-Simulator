@@ -140,7 +140,9 @@ memory = # memory address starting from 65536 , add 4
    '10000000001100000': 0, '10000000001100100': 0, '10000000001101000': 0, '10000000001101100': 0, 
    '10000000001110000': 0, '10000000001110100': 0, '10000000001111000': 0, '10000000001111100': 0 } 
 # to get content of memory from its binary
+######################################################################################################
 
+def display(PC, 
         
 virtual_halt = "00000000000000000000000001100011"
 
@@ -149,6 +151,7 @@ with open (sys.argv[1], "r") as pointer:
     binary = pointer.readlines()
 
 PC = 0
+output = []
 
 while (PC <  len( binary ) ):
   line = binary[PC/4]
