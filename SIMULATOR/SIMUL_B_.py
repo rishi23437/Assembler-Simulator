@@ -20,38 +20,38 @@ def B_TYPE( line ):
 
   #bne
   elif funct3 == '001':
-    if (rs1!=rs2):
+    if (register[rs1]!=register[rs2]):
       PC+=bin_to_dec(imm)
     else:
-      PC+=1
+      PC+=4
 
   #bge
   elif funct3 == '101':
-    if (bin_to_dec(rs1)>=bin_to_dec(rs2)):
+    if (bin_to_dec(register[rs1])>=bin_to_dec(register[rs2])):
       PC+=bin_to_dec(imm)
     else:
-      PC+=1
+      PC+=4
 
   #bgeu
   elif funct3 == '111':
-    if (bin_to_dec(rs1, 'U')>=bin_to_dec(rs2, 'U')):
+    if (bin_to_dec(register[rs1], 'U')>=bin_to_dec(register[rs2], 'U')):
       PC+=bin_to_dec(imm)
     else:
-      PC+=1
+      PC+=4
 
   #blt
   elif funct3 == '100':
-    if (bin_to_dec(rs1)<bin_to_dec(rs2)):
+    if (bin_to_dec(register[rs1])<bin_to_dec(register[rs2])):
       PC+=bin_to_dec(imm)
     else:
-      PC+=1
+      PC+=4
 
   #bltu
   elif funct3 == '110':
-    if (bin_to_dec(rs1, 'U')<bin_to_dec(rs2, 'U')):
+    if (bin_to_dec(register[rs1], 'U')<bin_to_dec(register[rs2], 'U')):
       PC+=bin_to_dec(imm)
     else:
-      PC+=1
+      PC+=4
 
   else:
     #error
