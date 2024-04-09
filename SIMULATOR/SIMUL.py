@@ -8,6 +8,19 @@
 
 #################################################################################################################
 
+def display_reg(program_ctr, memory_reg):
+    inp_f=open("file_name.txt",'a')
+    number = sext(str(program_ctr))
+    
+    inp_f.write(number, 32))
+    for reg in memory_reg:
+        inp_f.write(' ')
+        inp_f.write(memory_reg[reg])
+    inp_f.write('/n')
+    inp_f.close()
+
+#################################################################################################################
+
 instruction_R = {0110011}  #use if else inside the R type function... 
 
 instruction_I = { 0000011 : {010 : 'lw'},  #may not use these values associated with keys. keys is enough.
