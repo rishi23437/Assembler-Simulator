@@ -127,6 +127,38 @@ memory = # memory address starting from 65536 , add 4
 # to get content of memory from its binary
 
         
+virtual_halt = "00000000000000000000000001100011"
+
+import sys
+with open (sys.argv[1], "r") as pointer:
+    binary = pointer.readlines()
+
+PC = 0
+
+while (PC <  len( binary ) ):
+  line = binary[PC/4]
+  opcode = line[25:32]
+
+  if opcode in instruction_R:
+          R_TYPE(line)
+
+  if opcode in instruction_I:
+          I_TYPE(line)
+    
+  if opcode in instruction_S:
+          S_TYPE(line)
+
+  if opcode in instruction_B:
+          B_TYPE(line)
+
+  if opcode in instruction_U:
+          U_TYPE(line)
+
+  if opcode in instruction_J:
+          J_TYPE(line)
+
+  display(PC, register)
+  
   
 
 
