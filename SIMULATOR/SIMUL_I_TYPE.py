@@ -3,6 +3,8 @@ def I_TYPE( line ):
   # STORE 32 bits in 1 register
 
   global PC
+  global register
+  global memory
 
   imm = line[0:12]
   rs1 = line[12:17]
@@ -13,7 +15,7 @@ def I_TYPE( line ):
   #lw
   if opcode == '0000011':
   #rd = mem(rs1 + sext(imm[11:0]))
-    register[rd] = memory[sext(bin_to_dec(register[rs1])) + bin_to_dec(imm), 17)]
+    register[rd] = memory(add_bin(register[rs1], imm))
 
   #addi
   if opcode == '0010011':
