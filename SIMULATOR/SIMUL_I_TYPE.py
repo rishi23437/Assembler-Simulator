@@ -16,25 +16,28 @@ def I_TYPE( line ):
   if opcode == '0000011':
   #rd = mem(rs1 + sext(imm[11:0]))
     register[rd] = memory(add_bin(register[rs1], imm))
+    PC += 4
 
   #addi
   if opcode == '0010011':
     if funct3 == '000':
-      register[rd] = sext(bin_to_dec(register[rs]) + bin_to_dec(imm),32)
+      register[rd] = bin_add(register[rs],imm)
 
   #sltiu
     elif funct3 == '011':
       #rd = 1. If unsigned(rs) < unsigned(imm)
       if bin_to_dec(register[rs],'u') < bin_to_dec(bin_to_dec(imm),'u') :
-        register[rd] = sext(1,32)   
+        register[rd] = sext(1 ,32)   
+    PC +=4
 
   #jalr
   
   if opcode == '1100111':
-    # register[rd] = PC + 1 //
-    # #And store(link) the return address in (rd).
-    # PC = register_name['x6'] + bin_to_dec(imm)
-    # if PC%2==1:
-    #   PC -= 1
+      register[rd] = sext((PC+4),32)
+      tempPC = add_bin(register[rs], imm)
+      tempPC = tempPC[:-1] + '0'
+      PC = bin_to_dec(tempPC,'u')
+
+
     
     
