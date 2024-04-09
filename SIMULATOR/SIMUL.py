@@ -28,7 +28,7 @@ def add_bin(num1, num2):
     b = Bits(bin=num2) 
     
     result = a.int + b.int
-    result_binary = Bits(int=result, length=32)
+    return sext(result, 32)
     
 #################################################################################################################
 
