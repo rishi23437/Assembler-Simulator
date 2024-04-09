@@ -1,3 +1,5 @@
+from bitstring import Bits
+
 # check the excecute which one used in jal ??
 # fix assembler errors
 # NEW ERROR TYPE: x0 register CANNOT be changed!!
