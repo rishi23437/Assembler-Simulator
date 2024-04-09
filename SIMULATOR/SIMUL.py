@@ -18,6 +18,17 @@ def display_reg(program_ctr, memory_reg):
     for reg in memory_reg:
         line = line + " " + memory_reg[reg]
     output.append(line)
+
+#################################################################################################################
+
+def add_bin(num1, num2):
+    #num 1 and num 2 are in binary string
+
+    a = Bits(bin=num1)  
+    b = Bits(bin=num2) 
+    
+    result = a.int + b.int
+    result_binary = Bits(int=result, length=32)
     
 #################################################################################################################
 
