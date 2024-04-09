@@ -9,5 +9,5 @@ def S_TYPE( line ):
 
   #sw
   memory[add_bin(register[rs1], imm)] = register[rs2]
-  
+  PC += 4
     
