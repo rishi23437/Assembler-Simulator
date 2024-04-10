@@ -10,14 +10,22 @@ from bitstring import Bits
 
 #################################################################################################################
 
-def display_reg(program_ctr, memory_reg):
+def display_file(program_ctr, file_reg):
     global output
     number = sext(str(program_ctr), 32)
     line = ''
     line = number
-    for reg in memory_reg:
-        line = line + " " + memory_reg[reg]
+    for reg in file_reg:
+        file_reg_value=file_reg[reg]
+        line = line + " 0b" + sext(file_reg_value,32)
     output.append(line)
+
+def display_mem(memory_reg):
+    inp_f=open("filename.txt", 'a')
+    for reg in memory_reg:
+        memory_reg_value=memory_reg[reg]
+        line ="0x" "0b" + sext(file_reg_value,32)
+    
 
 #################################################################################################################
 
