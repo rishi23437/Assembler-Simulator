@@ -195,9 +195,15 @@ while (PC <  len( binary ) ):
           J_TYPE(line)
 
   display_reg(PC, register)
-  
-  
 
+
+
+
+with open (sys.argv[2], "w") as pointer:
+  if (len(output) != 0):
+      for idx in range(len(output) - 1):
+         pointer.write(output[idx] + "\n")
+      pointer.write(output[-1])
 
       
       
