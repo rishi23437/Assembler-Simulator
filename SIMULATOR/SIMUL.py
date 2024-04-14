@@ -21,13 +21,12 @@ def display_file(program_ctr, file_reg):
     output.append(line)
 
 def display_mem(memory_reg):
-    inp_f=open("filename.txt", 'a')
+    global output
     for reg in memory_reg:
         reg_name=bin_to_dec(reg)
         reg_name=hex(reg_name)
         line=reg_name[0:1]+"000"+reg_name[2:6]+":0b"+sext(memory_reg[reg])+"\n"
-        inp_f.write(line)
-    inp_f.close()
+        output.append(line)
 
 #################################################################################################################
 
