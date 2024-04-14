@@ -133,7 +133,232 @@ def bin_to_dec ( number, sign = 's' ) :
   return dec
 
 ####################################################################################################################
+def I_TYPE( line ):
+  # line is 32 bits
+  # STORE 32 bits in 1 register
 
+  global PC
+  global register
+  global memory
+
+  imm = line[0:12]
+  rs1 = line[12:17]
+  funct3 = line[17:20]
+  rd = line[20:25]
+  opcode = line[25:32]
+
+  #lw
+  if opcode == '0000011':
+  #rd = mem(rs1 + sext(imm[11:0]))
+    register[rd] = memory(add_bin(register[rs1], imm))
+    PC += 4
+
+  #addi
+  if opcode == '0010011':
+    if funct3 == '000':
+      register[rd] = bin_add(register[rs],imm)
+
+  #sltiu
+    elif funct3 == '011':
+      #rd = 1. If unsigned(rs) < unsigned(imm)
+      if bin_to_dec(register[rs],'u') < bin_to_dec(bin_to_dec(imm),'u') :
+        register[rd] = sext(1 ,32)   
+    PC +=4
+
+  #jalr
+  
+  if opcode == '1100111':
+      register[rd] = sext((PC+4),32)
+      tempPC = add_bin(register[rs], imm)
+      tempPC = tempPC[:-1] + '0'
+      PC = bin_to_dec(tempPC,'u')
+
+####################################################################################################################
+
+def S_TYPE( line ):
+  # line is 32 bits
+
+  global PC
+  global register
+  global memory
+
+  imm = line[0:7] + line[20:25]
+  rs2 = line[7:12]
+  rs1 = line[12:17]
+  funct3 = line[17:20]
+  opcode = line[25:32]
+
+  #sw
+  memory[add_bin(register[rs1], imm)] = register[rs2]
+  PC += 4
+
+####################################################################################################################
+
+def B_TYPE( line ):
+  # line is 32 bits
+  #imm==0?
+
+  global PC
+  global register
+  global memory
+
+  imm = line[0]+line[24]+line[1:7]+line[20:24]+'0'
+  rs1 = line[12:17]
+  funct3 = line[17:20]
+  rs2 = line[7:12]
+
+  #beq
+  if funct3 == '000':
+    if (register[rs1] == register[rs2]):
+      PC = PC + bin_to_dec(imm)
+    else:
+      PC += 4
+
+  #bne
+  elif funct3 == '001':
+    if (register[rs1]!=register[rs2]):
+      PC+=bin_to_dec(imm)
+    else:
+      PC+=4
+
+  #bge
+  elif funct3 == '101':
+    if (bin_to_dec(register[rs1])>=bin_to_dec(register[rs2])):
+      PC+=bin_to_dec(imm)
+    else:
+      PC+=4
+
+  #bgeu
+  elif funct3 == '111':
+    if (bin_to_dec(register[rs1], 'U')>=bin_to_dec(register[rs2], 'U')):
+      PC+=bin_to_dec(imm)
+    else:
+      PC+=4
+
+  #blt
+  elif funct3 == '100':
+    if (bin_to_dec(register[rs1])<bin_to_dec(register[rs2])):
+      PC+=bin_to_dec(imm)
+    else:
+      PC+=4
+
+  #bltu
+  elif funct3 == '110':
+    if (bin_to_dec(register[rs1], 'U')<bin_to_dec(register[rs2], 'U')):
+      PC+=bin_to_dec(imm)
+    else:
+      PC+=4
+
+  else:
+    #error
+
+####################################################################################################################
+def R_TYPE(line):
+    """
+    line is a 32-bit string
+    reg1, reg2 - in binary 2's complement
+    rs1, rs2, rd - addresses of registers(keys in register dict)
+    register dictionary contains values in BINARY 2's Complement
+    """
+    global PC, register
+
+    funct7 = line[0:7]
+    rs2 = line[7:12]
+    rs1 = line[12:17]
+    funct3 = line[17:20]
+    rd = line[20:25]
+    opcode = line[25:32]                        # will not be used, 0110011
+
+    reg1 = Bits(bin = str(register[rs1]))                       # register[rs1] --> binary 2's complement
+    reg2 = Bits(bin = str(register[rs2]))                       
+
+    if funct7 == "0100000":
+        #sub
+        result_dec = reg1.int - reg2.int
+        register[rd] = Bits(int = result_dec, length = 32).bin
+
+    else:
+        if funct3 == "000":
+            #add
+            result_dec = reg1.int + reg2.int
+            register[rd] = Bits(int = result_dec, length = 32).bin
+
+        elif funct3 == "001":
+            #sll
+            r2 = bin_to_dec(register[rs2][27:32], 'u')
+            r1 = register[rs1][r2:32]
+            result = r1 + r2*'0'
+            register[rd] = result
+
+        elif funct3 == "010":
+            #slt
+            if reg1.int < reg2.int:
+                result = '00000000000000000000000000000001'
+                register[rd] = result
+
+        elif funct3 == "011":
+            #sltu
+            r1 = bin_to_dec(register[rs1], 'u')
+            r2 = bin_to_dec(register[rs2], 'u')
+
+            if r1 < r2:
+                result = '00000000000000000000000000000001'
+                register[rd] = result
+
+        elif funct3 == "100":
+            #xor
+            r1 = bin_to_dec(register[rs1], 'u')
+            r2 = bin_to_dec(register[rs2], 'u')
+            result = bin(r1 ^ r2)[2:]                       # bin will give string starting with 0b
+            register[rd] = (32 - len(result))*'0' + result                   
+
+        elif funct3 == "101":
+            #srl
+            r2 = bin_to_dec(register[rs2][27:32], 'u')
+            r1 = register[rs1][0:32-r2]
+            result = r2*'0' + r1
+            register[rd] = result
+
+        elif funct3 == "110":
+            #or
+            r1 = bin_to_dec(register[rs1], 'u')
+            r2 = bin_to_dec(register[rs2], 'u')
+            result = bin(r1 | r2)[2:]
+            register[rd] = (32 - len(result))*'0' + result
+
+        else:
+            #and
+            r1 = bin_to_dec(register[rs1], 'u')
+            r2 = bin_to_dec(register[rs2], 'u')
+            result = bin(r1 & r2)[2:]
+            register[rd] = (32 - len(result))*'0' + result
+
+    PC += 4
+####################################################################################################################
+ 
+def U_TYPE( line ):
+  #line is 32 bits
+  global PC
+  global register 
+  global memory
+  
+  imm = line[0:20]
+  rd = line[20:25]
+  opcode =line[25:32]
+
+  if (opcode == "0110111"):
+    register[rd] = sext(bin_to_dec(imm),32)
+
+  elif (opcode == "0010111"):
+    register[rd] = sext(PC + bin_to_dec(imm), 32)
+
+  PC += 4   
+    
+####################################################################################################################
+# J TYPE
+
+
+####################################################################################################################
 register =  #starting from 0 to 31 in binary 
 {'00000': '00000000000000000000000000000000', 
  '00001': '00000000000000000000000000000000', 
