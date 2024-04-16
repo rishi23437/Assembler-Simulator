@@ -597,7 +597,9 @@ while (PC <  (4*len( binary )) ):
 
   if opcode in instruction_J:
           J_TYPE(line)
-
+      
+  register['00000'] = '0'*32
+    
   display_file(PC, register)
 
 display_mem(memory)
