@@ -1,31 +1,30 @@
-def R_TYPE(line):
+def R_TYPE_TRYING(line):
     """
     line is a 32-bit string
     reg1, reg2 - in binary 2's complement
     rs1, rs2, rd - addresses of registers(keys in register dict)
     register dictionary contains values in BINARY 2's Complement
     """
-    global PC, register
+    global PC
+    global register
+    global memory
 
     funct7 = line[0:7]
     rs2 = line[7:12]
     rs1 = line[12:17]
     funct3 = line[17:20]
     rd = line[20:25]
-    opcode = line[25:32]                        # will not be used, 0110011
-
-    reg1 = Bits(bin = str(register[rs1]))                       # register[rs1] --> binary 2's complement
-    reg2 = Bits(bin = str(register[rs2]))                       
+    opcode = line[25:32]                        # will not be used, 0110011                  
 
     #sub
     if funct7 == "0100000":
-        result = sub_bin(str(register[rs1]), str(register[rs2]))
+        result = sub_bin(register[rs1], register[rs2])
         register[rd] = result
 
     else:
         #add
         if funct3 == "000":
-            result = add_bin(str(register[rs1]), str(register[rs2]))
+            result = add_bin(register[rs1], register[rs2])
             register[rd] = result
 
         #sll
@@ -37,8 +36,8 @@ def R_TYPE(line):
 
         #slt
         elif funct3 == "010":
-            if reg1.int < reg2.int:
-                result = '00000000000000000000000000000001'
+            if bin_to_dec(rs1) < bin_to_dec(rs2):
+                result = '0'*31 + '1'
                 register[rd] = result
 
         #sltu
@@ -47,15 +46,15 @@ def R_TYPE(line):
             r2 = bin_to_dec(register[rs2], 'u')
 
             if r1 < r2:
-                result = '00000000000000000000000000000001'
+                result = '0'*31 + '1'
                 register[rd] = result
 
         #xor
         elif funct3 == "100":
-            r1 = bin_to_dec(register[rs1], 'u')
-            r2 = bin_to_dec(register[rs2], 'u')
-            result = bin(r1 ^ r2)[2:]                       # bin will give string starting with 0b
-            register[rd] = (32 - len(result))*'0' + result                   
+            r1 = bin_to_dec(register[rs1])
+            r2 = bin_to_dec(register[rs2])
+            result = sext((r1 ^ r2),32))                      # bin will give string starting with 0b
+            register[rd] = result                
 
         #srl
         elif funct3 == "101":
@@ -66,16 +65,16 @@ def R_TYPE(line):
 
         #or
         elif funct3 == "110":
-            r1 = bin_to_dec(register[rs1], 'u')
-            r2 = bin_to_dec(register[rs2], 'u')
-            result = bin(r1 | r2)[2:]
-            register[rd] = (32 - len(result))*'0' + result
+            r1 = bin_to_dec(register[rs1])
+            r2 = bin_to_dec(register[rs2])
+            result = sext((r1 | r2), 32)
+            register[rd] = result
 
         #and
         else:
-            r1 = bin_to_dec(register[rs1], 'u')
-            r2 = bin_to_dec(register[rs2], 'u')
-            result = bin(r1 & r2)[2:]
-            register[rd] = (32 - len(result))*'0' + result
-    register[rd] = str(register[rd])
+            r1 = bin_to_dec(register[rs1])
+            r2 = bin_to_dec(register[rs2])
+            result = sext((r1 & r2),32)
+            register[rd] = result
+
     PC += 4
