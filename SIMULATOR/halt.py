@@ -5,6 +5,8 @@
 #let all other bits be filler 0
 halt = '00000000000000000000000000000110'
 
+# simply have to write in while loop, if line == halt, break. No need for function
+
 #####################
 
 # rvrs_opcode = '0000111'
