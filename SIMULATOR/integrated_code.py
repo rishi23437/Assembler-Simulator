@@ -33,21 +33,28 @@ def display_mem(memory_reg):
 
 def add_bin(num1, num2):
     #num 1 and num 2 are in binary string
-
-    a = Bits(bin=num1)  
-    b = Bits(bin=num2) 
+    a = bin_to_dec(num1)
+    b = bin_to_dec(num2)
+    result = sext( (a+b), 32 )
+    return result
     
-    result = a.int + b.int
-    return sext(result, 32)
+    # a = Bits(bin=num1)  
+    # b = Bits(bin=num2) 
+    
+    # result = a.int + b.int
+    # return sext(result, 32)
 
 def sub_bin(num1, num2):
     #num 1 and num 2 are in binary string
-
-    a = Bits(bin=num1)  
-    b = Bits(bin=num2) 
+    a = bin_to_dec(num1)
+    b = bin_to_dec(num2)
+    result = sext( (a-b), 32 )
+    return result
+    # a = Bits(bin=num1)  
+    # b = Bits(bin=num2) 
     
-    result = a.int - b.int
-    return sext(result, 32)
+    # result = a.int - b.int
+    # return sext(result, 32)
     
 #################################################################################################################
 
