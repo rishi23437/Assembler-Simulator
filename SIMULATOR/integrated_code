@@ -13,11 +13,12 @@ from bitstring import Bits
 def display_file(program_ctr, file_reg):
     global output
     number = sext(str(program_ctr), 32)
-    line = ''
-    line = number
+    line = '0b'
+    line += number
     for reg in file_reg:
         file_reg_value=file_reg[reg]
-        line = line + " 0b" + sext(file_reg_value,32)
+        line = line + " 0b" + ("0"*(32-len(file_reg_value)))+file_reg_value#sext(file_reg_value,32)
+    line+=" "
     output.append(line)
 
 def display_mem(memory_reg):
@@ -25,7 +26,7 @@ def display_mem(memory_reg):
     for reg in memory_reg:
         reg_name=bin_to_dec(reg)
         reg_name=hex(reg_name)
-        line=reg_name[0:1]+"000"+reg_name[2:6]+":0b"+sext(memory_reg[reg], 32)+"\n"
+        line=reg_name[0:1]+"000"+reg_name[2:6]+":0b"+memory_reg[reg]
         output.append(line)
 
 #################################################################################################################
@@ -333,7 +334,6 @@ def R_TYPE(line):
             r2 = bin_to_dec(register[rs2], 'u')
             result = bin(r1 & r2)[2:]
             register[rd] = (32 - len(result))*'0' + result
-
     register[rd] = str(register[rd])
     PC += 4
 ####################################################################################################################  
@@ -369,22 +369,21 @@ def J_TYPE( line ):
 
   global PC, register
 
-  imm=line[0:19]
-  rd=line[20:24]
-  opcode=line[25:31]
-
+  imm=line[0]+line[12:20]+line[11]+line[1:11]+"0"
+  rd=line[20:25]
+  print(rd)
   #jal
   register[rd] = sext((PC+4),32)
   temp_PC = add_bin(sext(PC,32), imm)
   temp_PC = temp_PC[:-1] + '0'
-  PC = bin_to_dec(tempPC,'u')
+  PC += bin_to_dec(temp_PC,'u')
 
 
 
 ####################################################################################################################
 register = {'00000': '00000000000000000000000000000000', 
  '00001': '00000000000000000000000000000000', 
- '00010': '00000000000000000000000000000000', 
+ '00010': '00000000000000000000000100000000', 
  '00011': '00000000000000000000000000000000', 
  '00100': '00000000000000000000000000000000', 
  '00101': '00000000000000000000000000000000', 
@@ -462,26 +461,27 @@ virtual_halt = "00000000000000000000000001100011"
 # with open (sys.argv[1], "r") as pointer:
 #     binary = pointer.readlines()
 
-with open(r"C:\Users\Mayank\OneDrive\Desktop\test.txt", "r") as pointer:
+with open(r"C:\Users\Mayank\OneDrive\Desktop\MK\test_case2", "r") as pointer:
    binary=pointer.readlines()
 
-for i in range(1, len(binary)-1):
+for i in range(len(binary)-1):
    binary[i]=binary[i][:-1]
 print(binary)
 
 PC = 0
 output = []
 
-while (PC <  len( binary ) ):
+while (PC <  (4*len( binary )) ):
   line = binary[PC//4]
 
   if line == virtual_halt:
      break
   
   opcode = line[25:32]
-
+  
   if opcode in instruction_R:
           R_TYPE(line)
+  
 
   if opcode in instruction_I:
           I_TYPE(line)
@@ -496,15 +496,13 @@ while (PC <  len( binary ) ):
           U_TYPE(line)
 
   if opcode in instruction_J:
-          #J_TYPE(line)
-          {}
+          J_TYPE(line)
 
   display_file(PC, register)
 
 display_mem(memory)
 
-with open(r"C:\Users\Mayank\OneDrive\Desktop\test.txt", "a") as pointer:
-   pointer.write("\n\n")
+with open(r"C:\Users\Mayank\OneDrive\Desktop\MK\my_output.txt", "w") as pointer:
    if (len(output) != 0):
       for idx in range(len(output) - 1):
          pointer.write(output[idx] + "\n")
