@@ -29,4 +29,7 @@ def errorGEN ( errorNUM, lineNUM ):
   return errorMSG
 
 
-instruction_mapping = {}
+map_bonus = {"mul": "0000100", "rst": "0000101", 
+            "halt": "", "rvrs": ""}                                        # FILL THESE LATER
+
+
