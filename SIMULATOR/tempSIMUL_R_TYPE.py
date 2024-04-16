@@ -23,14 +23,14 @@ def R_TYPE(line):
 
     if funct7 == "0100000":
         #sub
-        result_dec = reg1.int - reg2.int
-        register[rd] = Bits(int = result_dec, length = 32).bin
+        result = sub_bin(str(register[rs1]), str(register[rs2]))
+        register[rd] = result
 
     else:
         if funct3 == "000":
             #add
-            result_dec = reg1.int + reg2.int
-            register[rd] = Bits(int = result_dec, length = 32).bin
+            result = add_bin(str(register[rs1]), str(register[rs2]))
+            register[rd] = result
 
         elif funct3 == "001":
             #sll
