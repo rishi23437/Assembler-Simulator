@@ -33,3 +33,27 @@ map_bonus = {"mul": "0000100", "rst": "0000101",
             "halt": "", "rvrs": ""}                                        # FILL THESE LATER
 
 
+def multiply(instruction_elements):
+    '''
+    instruction_elements is a list of the form ['mul', 'rd', 'rs1', 'rs2']
+    Output format: Filler bits(10 zeroes) + rd + rs1 + rs2 + opcode
+    '''
+    opcode = "0000100"
+    rd = reg_ENCODE.get(instruction_elements[1])
+    rs1 = reg_ENCODE.get(instruction_elements[2])
+    rs2 = reg_ENCODE.get(instruction_elements[3])
+
+    if (rd == None) or (rs1 == None) or (rs2 == None):
+        return "e3"
+
+    output = '0000000000' + rd + rs1 + rs2 + opcode
+    return output
+
+def reset():
+    '''
+    Output format: Filler bits(25 zeroes) + opcode
+    '''
+    opcode = "0000101"
+
+    output = '0000000000000000000000000' + opcode
+    return output
