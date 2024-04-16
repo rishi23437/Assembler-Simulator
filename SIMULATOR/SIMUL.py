@@ -156,12 +156,12 @@ def I_TYPE( line ):
   #addi
   if opcode == '0010011':
     if funct3 == '000':
-      register[rd] = bin_add(register[rs],imm)
+      register[rd] = add_bin(register[rs1],imm)
 
   #sltiu
     elif funct3 == '011':
       #rd = 1. If unsigned(rs) < unsigned(imm)
-      if bin_to_dec(register[rs],'u') < bin_to_dec(bin_to_dec(imm),'u') :
+      if bin_to_dec(register[rs1],'u') < bin_to_dec(bin_to_dec(imm),'u') :
         register[rd] = sext(1 ,32)   
     PC +=4
 
@@ -169,7 +169,7 @@ def I_TYPE( line ):
   
   if opcode == '1100111':
       register[rd] = sext((PC+4),32)
-      tempPC = add_bin(register[rs], imm)
+      tempPC = add_bin(register[rs1], imm)
       tempPC = tempPC[:-1] + '0'
       PC = bin_to_dec(tempPC,'u')
 
@@ -251,6 +251,7 @@ def B_TYPE( line ):
 
   else:
     #error
+    {}
 
 ####################################################################################################################
 def R_TYPE(line):
@@ -359,8 +360,7 @@ def U_TYPE( line ):
 
 
 ####################################################################################################################
-register =  #starting from 0 to 31 in binary 
-{'00000': '00000000000000000000000000000000', 
+register = {'00000': '00000000000000000000000000000000', 
  '00001': '00000000000000000000000000000000', 
  '00010': '00000000000000000000000000000000', 
  '00011': '00000000000000000000000000000000', 
@@ -397,8 +397,7 @@ register =  #starting from 0 to 31 in binary
 
 register_name = { } # to decode the register name from its binary
 
-memory = # memory address starting from 65536 , add 4
-{'10000000000000000': '00000000000000000000000000000000', 
+memory = {'10000000000000000': '00000000000000000000000000000000', 
  '10000000000000100': '00000000000000000000000000000000', 
  '10000000000001000': '00000000000000000000000000000000', 
  '10000000000001100': '00000000000000000000000000000000', 
@@ -434,7 +433,6 @@ memory = # memory address starting from 65536 , add 4
 # to get content of memory from its binary
 ######################################################################################################
 
-def display(PC, 
         
 virtual_halt = "00000000000000000000000001100011"
 
@@ -447,6 +445,10 @@ output = []
 
 while (PC <  len( binary ) ):
   line = binary[PC/4]
+  
+  if line == virtual_halt:
+     break
+  
   opcode = line[25:32]
 
   if opcode in instruction_R:
@@ -465,9 +467,12 @@ while (PC <  len( binary ) ):
           U_TYPE(line)
 
   if opcode in instruction_J:
-          J_TYPE(line)
+          #J_TYPE(line)
+          {}
 
-  display_reg(PC, register)
+  display_file(PC, register)
+
+display_mem(memory)
 
 
 
@@ -477,7 +482,3 @@ with open (sys.argv[2], "w") as pointer:
       for idx in range(len(output) - 1):
          pointer.write(output[idx] + "\n")
       pointer.write(output[-1])
-
-      
-      
-        
