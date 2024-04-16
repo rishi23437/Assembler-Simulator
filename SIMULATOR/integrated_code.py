@@ -1,8 +1,8 @@
 from bitstring import Bits
 
 # check the excecute which one used in jal ??
-# fix assembler errors  ???????????
-# NEW ERROR TYPE: x0 register CANNOT be changed!! ????
+# fix assembler errors
+# NEW ERROR TYPE: x0 register CANNOT be changed!!
 # Bonus instruction - halt: Possilbe simulation: PC += len(simulator)
 
 #Assumption : all syntactical errors have been handled by assembler. So each line in the input file is a valid 32 bit instruction
@@ -151,7 +151,7 @@ def I_TYPE( line ):
   #lw
   if opcode == '0000011':
   #rd = mem(rs1 + sext(imm[11:0]))
-    register[rd] = memory(add_bin(register[rs1], imm))
+    register[rd] = memory[add_bin(register[rs1], imm)]
     PC += 4
 
   #addi
@@ -376,7 +376,7 @@ def J_TYPE( line ):
   register[rd] = sext((PC+4),32)
   temp_PC = add_bin(sext(PC,32), imm)
   temp_PC = temp_PC[:-1] + '0'
-  PC += bin_to_dec(temp_PC,'u')
+  PC = bin_to_dec(temp_PC,'u')
 
 
 
@@ -475,6 +475,7 @@ while (PC <  (4*len( binary )) ):
   line = binary[PC//4]
 
   if line == virtual_halt:
+     display_file(PC,register)
      break
   
   opcode = line[25:32]
