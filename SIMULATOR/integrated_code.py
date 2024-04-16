@@ -39,6 +39,15 @@ def add_bin(num1, num2):
     
     result = a.int + b.int
     return sext(result, 32)
+
+def sub_bin(num1, num2):
+    #num 1 and num 2 are in binary string
+
+    a = Bits(bin=num1)  
+    b = Bits(bin=num2) 
+    
+    result = a.int - b.int
+    return sext(result, 32)
     
 #################################################################################################################
 
@@ -276,14 +285,14 @@ def R_TYPE(line):
 
     #sub
     if funct7 == "0100000":
-        result_dec = reg1.int - reg2.int
-        register[rd] = Bits(int = result_dec, length = 32).bin
+        result = sub_bin(str(register[rs1]), str(register[rs2]))
+        register[rd] = result
 
     else:
         #add
         if funct3 == "000":
-            result_dec = reg1.int + reg2.int
-            register[rd] = Bits(int = result_dec, length = 32).bin
+            result = add_bin(str(register[rs1]), str(register[rs2]))
+            register[rd] = result
 
         #sll
         elif funct3 == "001":
