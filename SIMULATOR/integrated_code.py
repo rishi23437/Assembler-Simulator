@@ -205,7 +205,7 @@ def R_TYPE_TRYING(line):
         elif funct3 == "100":
             r1 = bin_to_dec(register[rs1])
             r2 = bin_to_dec(register[rs2])
-            result = sext((r1 ^ r2),32))                      # bin will give string starting with 0b
+            result = sext((r1 ^ r2),32)                      # bin will give string starting with 0b
             register[rd] = result                
 
         #srl
