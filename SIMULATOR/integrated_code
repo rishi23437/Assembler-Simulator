@@ -273,32 +273,32 @@ def R_TYPE(line):
     reg1 = Bits(bin = str(register[rs1]))                       # register[rs1] --> binary 2's complement
     reg2 = Bits(bin = str(register[rs2]))                       
 
+    #sub
     if funct7 == "0100000":
-        #sub
         result_dec = reg1.int - reg2.int
         register[rd] = Bits(int = result_dec, length = 32).bin
 
     else:
+        #add
         if funct3 == "000":
-            #add
             result_dec = reg1.int + reg2.int
             register[rd] = Bits(int = result_dec, length = 32).bin
 
+        #sll
         elif funct3 == "001":
-            #sll
             r2 = bin_to_dec(register[rs2][27:32], 'u')
             r1 = register[rs1][r2:32]
             result = r1 + r2*'0'
             register[rd] = result
 
+        #slt
         elif funct3 == "010":
-            #slt
             if reg1.int < reg2.int:
                 result = '00000000000000000000000000000001'
                 register[rd] = result
 
+        #sltu
         elif funct3 == "011":
-            #sltu
             r1 = bin_to_dec(register[rs1], 'u')
             r2 = bin_to_dec(register[rs2], 'u')
 
@@ -306,34 +306,35 @@ def R_TYPE(line):
                 result = '00000000000000000000000000000001'
                 register[rd] = result
 
+        #xor
         elif funct3 == "100":
-            #xor
             r1 = bin_to_dec(register[rs1], 'u')
             r2 = bin_to_dec(register[rs2], 'u')
             result = bin(r1 ^ r2)[2:]                       # bin will give string starting with 0b
             register[rd] = (32 - len(result))*'0' + result                   
 
+        #srl
         elif funct3 == "101":
-            #srl
             r2 = bin_to_dec(register[rs2][27:32], 'u')
             r1 = register[rs1][0:32-r2]
             result = r2*'0' + r1
             register[rd] = result
 
+        #or
         elif funct3 == "110":
-            #or
             r1 = bin_to_dec(register[rs1], 'u')
             r2 = bin_to_dec(register[rs2], 'u')
             result = bin(r1 | r2)[2:]
             register[rd] = (32 - len(result))*'0' + result
 
+        #and
         else:
-            #and
             r1 = bin_to_dec(register[rs1], 'u')
             r2 = bin_to_dec(register[rs2], 'u')
             result = bin(r1 & r2)[2:]
             register[rd] = (32 - len(result))*'0' + result
 
+    register[rd] = str(register[rd])
     PC += 4
 ####################################################################################################################
  
