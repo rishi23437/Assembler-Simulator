@@ -31,11 +31,11 @@ def display_mem(memory_reg):
 
 #################################################################################################################
 
-def add_bin(num1, num2, bits = 32):
+def add_bin(num1, num2):
     #num 1 and num 2 are in binary string
     a = bin_to_dec(num1)
     b = bin_to_dec(num2)
-    result = sext( (a+b), bits )
+    result = sext( (a+b), 32)
     return result
     
     # a = Bits(bin=num1)  
@@ -249,7 +249,7 @@ def I_TYPE( line ):
   #lw
   if opcode == '0000011':
   #rd = mem(rs1 + sext(imm[11:0]))
-    register[rd] = memory[add_bin(register[rs1], imm, 17)]
+    register[rd] = memory[add_bin(register[rs1], imm)[15:32]]
     PC += 4
 
   #addi
@@ -288,7 +288,7 @@ def S_TYPE( line ):
   opcode = line[25:32]
 
   #sw
-  memory[add_bin(register[rs1], imm, 17)] = register[rs2]
+  memory[add_bin(register[rs1], imm)[15:32]] = register[rs2]
   PC += 4
 
 ####################################################################################################################
