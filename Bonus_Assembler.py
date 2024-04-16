@@ -9,3 +9,24 @@ reg_ENCODE  = {'zero': '00000',   'ra': '00001',     'sp': '00010',     'gp': '0
                's4': '10100',     's5': '10101',     's6': '10110',     's7': '10111', 
                's8': '11000',     's9': '11001',     's10': '11010',    's11': '11011', 
                't3': '11100',     't4': '11101',     't5': '11110',     't6': '11111'}
+
+
+#error mapping. can modify later
+errorMAPPING = {"e1": "Error: overflow detected in immediate value" ,
+                "e2": "Error: invalid opcode",
+                "e3": "Error: invalid register name",
+                "e4": "Error: maximum(1000) loop calls reached",
+                "e5": "Error: invalid label name",
+                "e6": "Error: Virtual Halt missing after last instruction",
+                "e7": "Error: Virtual Halt encountered before remaining instructions", 
+                "e8": "Error: Address given in label is out of bounds",
+                "e9": "Error: Label name not unique",
+               "e10": "Error: Label given is not present",
+               "e11": "Error: Virtual Halt missing" }                
+              
+def errorGEN ( errorNUM, lineNUM ):
+  errorMSG = errorMAPPING[errorNUM] + " at Line " + f'{lineNUM + 1}'  # 0 PC implies line 1 !!!
+  return errorMSG
+
+
+instruction_mapping = {}
