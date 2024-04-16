@@ -17,7 +17,7 @@ def display_file(program_ctr, file_reg):
     line = number
     for reg in file_reg:
         file_reg_value=file_reg[reg]
-        line = line + " 0b" + sext(file_reg_value,32)
+        line = line + " 0b" + file_reg_value
     output.append(line)
 
 def display_mem(memory_reg):
@@ -25,7 +25,7 @@ def display_mem(memory_reg):
     for reg in memory_reg:
         reg_name=bin_to_dec(reg)
         reg_name=hex(reg_name)
-        line=reg_name[0:1]+"000"+reg_name[2:6]+":0b"+sext(memory_reg[reg])+"\n"
+        line=reg_name[0:1]+"000"+reg_name[2:6]+":0b"+memory_reg[reg]+"\n"
         output.append(line)
 
 #################################################################################################################
