@@ -449,7 +449,8 @@ def U_TYPE( line ):
 
   # lui
   if (opcode == "0110111"):
-    register[rd] = sext(bin_to_dec(imm),32)
+    register[rd] = imm + "000000000000"                            # changed part
+    # register[rd] = sext(bin_to_dec(imm),32)
 
   # auipc
   elif (opcode == "0010111"):
