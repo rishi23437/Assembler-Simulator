@@ -24,9 +24,9 @@ def display_file(program_ctr, file_reg):
 def display_mem(memory_reg):
     global output
     for reg in memory_reg:
-        reg_name=bin_to_dec(reg)
+        reg_name=bin_to_dec(reg, 'u')
         reg_name=hex(reg_name)
-        line=reg_name[0:1]+"000"+reg_name[2:6]+":0b"+memory_reg[reg]
+        line=reg_name[0:2]+"000"+reg_name[2:7]+":0b"+memory_reg[reg]
         output.append(line)
 
 #################################################################################################################
