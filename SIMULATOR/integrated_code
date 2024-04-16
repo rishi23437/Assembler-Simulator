@@ -336,28 +336,49 @@ def R_TYPE(line):
 
     register[rd] = str(register[rd])
     PC += 4
-####################################################################################################################
- 
+####################################################################################################################  
+
 def U_TYPE( line ):
-  #line is 32 bits
-  global PC
-  global register 
-  global memory
+  # line is 32 bits
+  # FORMAT- immidiate[0:19]+register_dest[20:24]+opcode[25:31]
+  # register dictionary contains values in BINARY 2's Complement
+
+  global PC, register
   
   imm = line[0:20]
   rd = line[20:25]
   opcode =line[25:32]
 
+  # lui
   if (opcode == "0110111"):
     register[rd] = sext(bin_to_dec(imm),32)
 
+  # auipc
   elif (opcode == "0010111"):
-    register[rd] = sext(PC + bin_to_dec(imm), 32)
+    register[rd] = sext(PC + bin_to_dec(imm), 32) 
 
   PC += 4   
+
     
 ####################################################################################################################
-# J TYPE
+
+def J_TYPE( line ):
+  # line is a 32-bit string
+  # FORMAT- immidiate[0:19]+register_dest[20:24]+opcode[25:31]
+  # register dictionary contains values in BINARY 2's Complement
+
+  global PC, register
+
+  imm=line[0:19]
+  rd=line[20:24]
+  opcode=line[25:31]
+
+  #jal
+  register[rd] = sext((PC+4),32)
+  temp_PC = add_bin(sext(PC,32), imm)
+  temp_PC = temp_PC[:-1] + '0'
+  PC = bin_to_dec(tempPC,'u')
+
 
 
 ####################################################################################################################
