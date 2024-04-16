@@ -454,7 +454,8 @@ def U_TYPE( line ):
 
   # auipc
   elif (opcode == "0010111"):
-    register[rd] = sext(PC + bin_to_dec(imm), 32) 
+    register[rd] = add_bin(sext(str(PC), 32), (imm + '000000000000'))
+    # register[rd] = sext(PC + bin_to_dec(imm), 32) 
 
   PC += 4   
 
