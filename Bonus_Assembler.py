@@ -57,3 +57,24 @@ def reset():
 
     output = '0000000000000000000000000' + opcode
     return output
+
+
+def rvrs ( instruction ) :
+    '''argument : list type, instruction
+    returns : string of encoded binary
+    '''
+    opcode = '0000111'
+    rd = reg_ENCODE.get(I_instruction[1])
+    rs = reg_ENCODE.get(I_instruction[2])  
+
+    if (rd == None) or (rs == None):
+        return "e3"
+  
+    encoded = '000000000000' + rs + '000' + rd + opcode
+    return encoded
+
+def halt():
+  
+  encoded = '0'*25 + '0000110'
+  return encoded
+  
