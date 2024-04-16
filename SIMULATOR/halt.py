@@ -1,3 +1,5 @@
+### FOR SIMULATOR PURPOSE ONLY #############
+
 # HALT
 # opcode 0000110
 #let all other bits be filler 0
@@ -22,6 +24,11 @@ def rvrs( line ):
 
   PC += 4
 
-  
+  ####################################################
+
+####### FOR ASSEMBLER PURPOSE ONLY ###############
+
+
+
   
   
