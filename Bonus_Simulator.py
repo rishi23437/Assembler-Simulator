@@ -243,7 +243,7 @@ while (PC <  (4*len( binary )) ):
     line = binary[PC//4]
 
     if line == halt:
-        # display_file(PC,register)                        # FLAG
+        display_file(PC,register)                        # FLAG
         break
   
     opcode = line[25:32]
