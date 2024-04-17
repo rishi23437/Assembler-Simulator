@@ -1,4 +1,5 @@
 import re
+import sys
 
 #register mapping
 reg_ENCODE  = {'zero': '00000',   'ra': '00001',     'sp': '00010',     'gp': '00011', 
@@ -78,3 +79,11 @@ def halt():
   encoded = '0'*25 + '0000110'
   return encoded
   
+#############################################################################################
+
+
+with open (sys.argv[1], "r") as pointer:
+    assembly = pointer.readlines()
+
+output_list = []
+PC = 0
