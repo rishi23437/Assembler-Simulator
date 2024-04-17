@@ -231,6 +231,18 @@ memory = {'10000000000000000': '00000000000000000000000000000000',
 with open (sys.argv[1], "r") as pointer:
     binary = pointer.readlines()
 
-  
-  
+for i in range(len(binary)-1):
+   binary[i]=binary[i][:-1]
+print(binary)
 
+
+
+
+
+
+
+with open (sys.argv[2], "w") as pointer:
+    if (len(output) != 0):
+        for idx in range(len(output) - 1):
+            pointer.write(output[idx] + "\n")
+        pointer.write(output[-1])
