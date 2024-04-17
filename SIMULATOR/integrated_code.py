@@ -557,12 +557,12 @@ memory = {'10000000000000000': '00000000000000000000000000000000',
         
 virtual_halt = "00000000000000000000000001100011"
 
-# import sys
-# with open (sys.argv[1], "r") as pointer:
-#     binary = pointer.readlines()
+import sys
+with open (sys.argv[1], "r") as pointer:
+    binary = pointer.readlines()
 
-with open(r"C:\Users\Mayank\OneDrive\Desktop\MK\test_case2", "r") as pointer:
-   binary=pointer.readlines()
+# with open(r"C:\Users\Mayank\OneDrive\Desktop\MK\test_case2", "r") as pointer:
+#    binary=pointer.readlines()
 
 for i in range(len(binary)-1):
    binary[i]=binary[i][:-1]
