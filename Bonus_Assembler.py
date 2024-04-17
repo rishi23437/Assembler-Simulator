@@ -29,9 +29,7 @@ def errorGEN ( errorNUM, lineNUM ):
   errorMSG = errorMAPPING[errorNUM] + " at Line " + f'{lineNUM + 1}'  # 0 PC implies line 1 !!!
   return errorMSG
 
-
-map_bonus = {"mul": "0000100", "rst": "0000101", 
-            "halt": "'0000110'", "rvrs": "0000111"}                                        # FILL THESE LATER
+######################################################################################################
 
 
 def multiply(instruction_elements):
@@ -134,3 +132,12 @@ while ( PC < (len(assembly) ) ):
       
     output_list.append(output)
     PC += 1
+
+
+########################################################################################
+
+with open (sys.argv[2], "w") as pointer:
+  if (len(output_list) != 0):
+      for idx in range(len(output_list) - 1):
+         pointer.write(output_list[idx] + "\n")
+      pointer.write(output_list[-1])
