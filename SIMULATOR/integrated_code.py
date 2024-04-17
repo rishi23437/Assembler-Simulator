@@ -605,16 +605,16 @@ while (PC <  (4*len( binary )) ):
 
 display_mem(memory)
 
-with open(r"C:\Users\Mayank\OneDrive\Desktop\MK\my_output.txt", "w") as pointer:
-   if (len(output) != 0):
-      for idx in range(len(output) - 1):
-         pointer.write(output[idx] + "\n")
-      pointer.write(output[-1])
-
-
-
-# with open (sys.argv[2], "w") as pointer:
-#   if (len(output) != 0):
+# with open(r"C:\Users\Mayank\OneDrive\Desktop\MK\my_output.txt", "w") as pointer:
+#    if (len(output) != 0):
 #       for idx in range(len(output) - 1):
 #          pointer.write(output[idx] + "\n")
 #       pointer.write(output[-1])
+
+
+
+ with open (sys.argv[2], "w") as pointer:
+   if (len(output) != 0):
+       for idx in range(len(output) - 1):
+          pointer.write(output[idx] + "\n")
+       pointer.write(output[-1])
