@@ -24,6 +24,8 @@ def display_file(program_ctr, file_reg):
 def display_mem(memory_reg):
     global output
     for reg in memory_reg:
+        if reg == '10000000010000000':
+            break
         reg_name=bin_to_dec(reg, 'u')
         reg_name=hex(reg_name)
         line=reg_name[0:2]+"000"+reg_name[2:7]+":0b"+memory_reg[reg]
