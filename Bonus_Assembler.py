@@ -87,3 +87,32 @@ with open (sys.argv[1], "r") as pointer:
 
 output_list = []
 PC = 0
+while ( PC < (len(assembly) ) ):
+    instruction = (assembly[PC]).lower()
+  
+    if (instruction == "\n"):                                      #for Empty lines
+        PC += 1
+        continue
+
+    # if (vh_flag == True):
+    #     output_list.clear()
+    #     output_list.append( errorGEN("e7", vh_num) )
+    #     break
+      
+    instruction_elements = re.split(' |,|\(|\)|:|\n', instruction)
+    instruction_elements = [element for element in instruction_elements if element != ""]
+
+    opcode = instruction_elements[0]
+
+    if opcode == "0000100":
+        output = multiply(instruction_elements)
+
+    elif opcode == "0000101":
+        output = reset()
+
+    elif opcode == "0000111":
+        output = rvrs(instruction_elements)
+
+    elif opcode == "0000110":
+        output = halt()
+  
