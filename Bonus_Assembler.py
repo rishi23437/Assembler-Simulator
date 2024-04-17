@@ -30,7 +30,7 @@ def errorGEN ( errorNUM, lineNUM ):
 
 
 map_bonus = {"mul": "0000100", "rst": "0000101", 
-            "halt": "", "rvrs": ""}                                        # FILL THESE LATER
+            "halt": "'0000110'", "rvrs": "0000111"}                                        # FILL THESE LATER
 
 
 def multiply(instruction_elements):
