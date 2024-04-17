@@ -1,3 +1,46 @@
+def sext(number, bits):
+  # ONLY USE IT TO SIGN EXTEND AN IMMEDIATE VALUE
+    """
+    This function first converts the number into binary
+    and then extends its bits to the required amount
+    """
+    number = int(number)
+    if ( ( number < -(2**(bits-1)) ) or ( number > (2**(bits-1))-1 ) ):
+        return "e1"
+      
+    if (number<0):
+        sign = -1
+        number = -number
+      
+    else:
+        sign = 1
+    binary = ""
+  
+    while (number>0):
+        binary += f"{number%2}"
+        number = number//2
+    binary = binary[::-1]
+    binary = ('0'*(bits-len(binary)))+binary
+  
+    if (sign == -1):
+        flag=False
+        twosComplement = ""
+      
+        for i in range(len(binary)-1, -1, -1):
+            if (flag):
+                if binary[i]=='1':
+                    twosComplement+='0'
+                else:
+                    twosComplement+='1'
+                continue
+              
+            twosComplement+=binary[i]
+            if (binary[i]=='1'):
+                flag = True 
+              
+        binary = twosComplement[::-1]
+    return binary
+
 def mul_bin(num1, num2):
     #num 1 and num 2 are in binary string
     a = bin_to_dec(num1)
