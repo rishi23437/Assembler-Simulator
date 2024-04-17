@@ -233,11 +233,38 @@ with open (sys.argv[1], "r") as pointer:
 
 for i in range(len(binary)-1):
    binary[i]=binary[i][:-1]
-print(binary)
+# print(binary)
 
 
+PC = 0
+output = []
 
+while (PC <  (4*len( binary )) ):
+    line = binary[PC//4]
 
+    if line == halt:
+        # display_file(PC,register)                        # FLAG
+        break
+  
+    opcode = line[25:32]
+
+    # reverse
+    if opcode == '0000111':
+        rvrs(line)
+
+    # multiply
+    if opcode == '0000100':
+        mul(line)
+
+    # reset
+    if opcode == '0000101':
+        rst()
+        
+    register['00000'] = '0'*32
+    
+    display_file(PC, register)
+
+display_mem(memory)
 
 
 
