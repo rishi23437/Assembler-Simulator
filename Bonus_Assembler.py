@@ -115,4 +115,22 @@ while ( PC < (len(assembly) ) ):
 
     elif opcode == "0000110":
         output = halt()
-  
+
+
+    else:
+        # opcode not from the mentioned mnemonics
+        output_list.clear()
+        output = errorGEN("e2", PC)
+        output_list.append( output )
+        print (output)
+        break
+    
+    if ( output in errorMAPPING ):
+        output_list.clear()
+        error1 = errorGEN(output, PC)
+        output_list.append( error1 )
+        print (error1)
+        break
+      
+    output_list.append(output)
+    PC += 1
