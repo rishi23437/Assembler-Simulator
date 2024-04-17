@@ -1,3 +1,11 @@
+def mul_bin(num1, num2):
+    #num 1 and num 2 are in binary string
+    a = bin_to_dec(num1)
+    b = bin_to_dec(num2)
+    result = sext( (a*b), 32)
+    return result
+
+
 # HALT
 # opcode 0000110
 #let all other bits be filler 0
