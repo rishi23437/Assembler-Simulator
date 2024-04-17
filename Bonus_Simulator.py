@@ -1,3 +1,26 @@
+import sys
+
+def display_file(program_ctr, file_reg):
+    global output
+    number = sext(str(program_ctr), 32)
+    line = '0b'
+    line += number
+    for reg in file_reg:
+        file_reg_value=file_reg[reg]
+        line = line + " 0b" + ("0"*(32-len(file_reg_value)))+file_reg_value#sext(file_reg_value,32)
+    line+=" "
+    output.append(line)
+
+def display_mem(memory_reg):
+    global output
+    for reg in memory_reg:
+        reg_name=bin_to_dec(reg, 'u')
+        reg_name=hex(reg_name)
+        line=reg_name[0:2]+"000"+reg_name[2:7]+":0b"+memory_reg[reg]
+        output.append(line)
+      
+##########################################################################################################
+
 def sext(number, bits):
   # ONLY USE IT TO SIGN EXTEND AN IMMEDIATE VALUE
     """
@@ -80,6 +103,59 @@ def mul_bin(num1, num2):
 
 ######################################################################################
 
+# HALT
+# opcode 0000110
+#let all other bits be filler 0
+halt = '00000000000000000000000000000110'
+
+# simply have to write in while loop, if line == halt, break. No need for function
+
+####################################################################################
+
+# rvrs_opcode = '0000111'
+def rvrs( line ):
+  global PC
+  global memory
+  global register
+  
+  # syntax : '000000000000' + rs1 + '000' + rd + '0000111'
+  rs1 = line[12:17]
+  rd = [20:25]
+  register[rd] = register[rs1][::-1]
+  
+  PC += 4
+####################################################
+
+def mul(line):
+    '''
+    Input format: Filler bits(10 zeroes) + rd + rs1 + rs2 + opcode(0000100)
+    '''
+    global PC, register
+
+    rd = line[10:15]
+    rs1 = line[15:20]
+    rs2 = line[20:25]
+
+    register[rd] = mul_bin(register[rs1], register[rs2])
+
+    PC += 4
+
+def rst():
+    '''
+    No input for reset, just check in while loop if opcode matches with 0000101
+    '''
+    global PC, register
+    for key in register:
+        if key == '00010':
+            register[key] = '00000000000000000000000100000000'
+            continue
+        else:
+            register[key] = '00000000000000000000000000000000'
+
+    PC += 4
+
+################################################################################################
+
 register = {'00000': '00000000000000000000000000000000', 
  '00001': '00000000000000000000000000000000', 
  '00010': '00000000000000000000000100000000', 
@@ -150,60 +226,10 @@ memory = {'10000000000000000': '00000000000000000000000000000000',
  '10000000001111000': '00000000000000000000000000000000', 
  '10000000001111100': '00000000000000000000000000000000'}
 
+###################################################################################################
 
-# HALT
-# opcode 0000110
-#let all other bits be filler 0
-halt = '00000000000000000000000000000110'
-
-# simply have to write in while loop, if line == halt, break. No need for function
-
-#############################################################
-
-# rvrs_opcode = '0000111'
-def rvrs( line ):
-  global PC
-  global memory
-  global register
-  
-  # syntax : '000000000000' + rs1 + '000' + rd + '0000111'
-  rs1 = line[12:17]
-  rd = [20:25]
-  register[rd] = register[rs1][::-1]
-  
-  PC += 4
-####################################################
-
-def mul(line):
-    '''
-    Input format: Filler bits(10 zeroes) + rd + rs1 + rs2 + opcode(0000100)
-    '''
-    global PC, register
-
-    rd = line[10:15]
-    rs1 = line[15:20]
-    rs2 = line[20:25]
-
-    register[rd] = mul_bin(register[rs1], register[rs2])
-
-    PC += 4
-
-def rst():
-    '''
-    No input for reset, just check in while loop if opcode matches with 0000101
-    '''
-    global PC, register
-    for key in register:
-        if key == '00010':
-            register[key] = '00000000000000000000000100000000'
-            continue
-        else:
-            register[key] = '00000000000000000000000000000000'
-
-    PC += 4
-
-
-
+with open (sys.argv[1], "r") as pointer:
+    binary = pointer.readlines()
 
   
   
