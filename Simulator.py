@@ -188,7 +188,7 @@ def R_TYPE_TRYING(line):
 
         #slt
         elif funct3 == "010":
-            if bin_to_dec(rs1) < bin_to_dec(rs2):
+            if bin_to_dec(register[rs1]) < bin_to_dec(register[rs2]):
                 result = '0'*31 + '1'
                 register[rd] = result
 
@@ -212,7 +212,10 @@ def R_TYPE_TRYING(line):
         elif funct3 == "101":
             r2 = bin_to_dec(register[rs2][27:32], 'u')
             r1 = register[rs1][0:32-r2]
-            result = r2*'0' + r1
+            if (r1[0]=='1'):
+               result=(r2*'1')+r1
+            else:
+               result = r2*'0' + r1
             register[rd] = result
 
         #or
@@ -416,7 +419,10 @@ def R_TYPE(line):
         elif funct3 == "101":
             r2 = bin_to_dec(register[rs2][27:32], 'u')
             r1 = register[rs1][0:32-r2]
-            result = r2*'0' + r1
+            if (r1[0]==1):
+               result = r2*'1' + r1
+            else:
+               result = r2*'0' + r1
             register[rd] = result
 
         #or
