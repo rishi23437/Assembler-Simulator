@@ -30,7 +30,7 @@ def errorGEN ( errorNUM, lineNUM ):
   return errorMSG
 
 operation = { 'mul' : '0000100',
-          'reset' : '0000101',
+          'rst' : '0000101',
           'rvrs': '0000111',
           'halt' : '0000110'}
           
