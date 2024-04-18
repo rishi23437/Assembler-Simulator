@@ -29,6 +29,13 @@ def errorGEN ( errorNUM, lineNUM ):
   errorMSG = errorMAPPING[errorNUM] + " at Line " + f'{lineNUM + 1}'  # 0 PC implies line 1 !!!
   return errorMSG
 
+operation = { 'mul' : '0000100',
+          'reset' : '0000101',
+          'rvrs': '0000111',
+          'halt' : '0000110'}
+          
+
+
 ######################################################################################################
 
 
@@ -101,17 +108,17 @@ while ( PC < (len(assembly) ) ):
     instruction_elements = [element for element in instruction_elements if element != ""]
 
     opcode = instruction_elements[0]
-
-    if opcode == "0000100":
+  
+    if operation[opcode] == "0000100":
         output = multiply(instruction_elements)
 
-    elif opcode == "0000101":
+    elif operation[opcode] == "0000101":
         output = reset()
 
-    elif opcode == "0000111":
+    elif operation[opcode] == "0000111":
         output = rvrs(instruction_elements)
 
-    elif opcode == "0000110":
+    elif operation[opcode] == "0000110":
         output = halt()
 
 
