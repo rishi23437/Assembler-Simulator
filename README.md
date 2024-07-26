@@ -10,7 +10,7 @@ Options available for automated testing:<br>
 --no-asm: Does not evaluate the assembler<br>
 --no-sim: Does not evaluate the simulator<br>
 
-<h2About the Project</h2>
+<h2>About the Project</h2>
 We created a custom assembler and a custom simulator to implement a subset of RV32I (RISC-V 32-bit integer) instruction set. RISCV, an open-source, load-store type ISA, is increasingly used for open-source hardware development. We verified its correctness through an automated testing infrastructure using multiple test cases.<br><br>
 
 Step 1) <br>
