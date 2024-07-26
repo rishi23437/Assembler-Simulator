@@ -21,6 +21,6 @@ Step 1) <br>
 Step 2)<br>
   -> Designed a Simulator which executes the instructions of the input machine code, and prints the value stored in all register and memory locations after each execution.<br>
   -> Used Python language to code the simulator<br>
-  -> Assumption : syntactical, accessing non-existent memory or register locations, etc., taken care of by the assembler. Hence, minimal error checking in this step.<br><br>
+  -> Assumption : syntactical errors, accessing non-existent memory or register locations, etc., taken care of by the assembler. Hence, minimal error checking in this step.<br><br>
 
 Additionally, we created a few added instructions which weren't part of the original ISA subset to increase the functionality and convenience of our assembler-simulator.
